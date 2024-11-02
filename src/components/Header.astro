@@ -1,0 +1,41 @@
+---
+const navItems = ["Blog", "Explore", "Projects", "About", "Gallery", "Links"];
+const userName = "Nemanja Mitic";
+import siteIcon from '../assets/image/site-icon-transparent.svg';
+---
+
+<header style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid #ddd;"
+>
+  <!-- Logo and User Name -->
+  <div style="display: flex; align-items: center;">
+    <img src={siteIcon.src} alt="Logo" style="width: 32px; height: 32px; margin-right: 0.5rem;"/>
+    <span  style="font-size: 1.2rem; font-weight: bold;">{userName}</span>
+  </div>
+
+  <!-- Navigation Links -->
+  <nav>
+    <ul
+      style="display: flex; gap: 1rem; list-style: none; margin: 0; padding: 0;"
+    >
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={`/${item.toLowerCase()}`}
+              style="text-decoration: none; color: inherit;"
+            >
+              {item}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <!-- Theme Toggle Icon -->
+  <button aria-label="Toggle theme" style="background: none; border: none; cursor: pointer;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 2a1 1 0 011 1v2a1 1 0 11-2 0V3a1 1 0 011-1zm6.364 3.636a1 1 0 011.414 0l1.414 1.414a1 1 0 01-1.414 1.414l-1.414-1.414a1 1 0 010-1.414zM21 11a1 1 0 011 1h-2a1 1 0 110-2h2zm-1.636 6.364a1 1 0 010 1.414l-1.414 1.414a1 1 0 01-1.414-1.414l1.414-1.414a1 1 0 011.414 0zM13 21a1 1 0 11-2 0v-2a1 1 0 112 0v2zm-6.364-3.636a1 1 0 01-1.414 0l-1.414-1.414a1 1 0 011.414-1.414l1.414 1.414a1 1 0 010 1.414zM3 13a1 1 0 110-2H1a1 1 0 110 2h2zm1.636-6.364a1 1 0 010-1.414l1.414-1.414a1 1 0 011.414 1.414L6.05 6.636a1 1 0 01-1.414 0zM12 5a7 7 0 100 14 7 7 0 000-14z"/>
+    </svg>
+</button>
+</header>

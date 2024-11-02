@@ -1,3 +1,6 @@
+
+
+
 【三項演算子の書き方】
 ---
 const visible = true;
