@@ -6,18 +6,12 @@ import ThemeIcon from './ThemeIcon.astro';
 import Link from './Link.astro';
 ---
 
-<!-- .header-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-} -->
-
-<header style="padding:1rem; border-bottom:2px solid #ddd;">
+<header style="padding:1rem; border-bottom:2.5px solid #ddd;">
   <div class="container" style="display:flex; justify-content:space-between; align-items:center; ">
     <Link href="/" class="logo-link" unstyled>
       <div style="display: flex; align-items: center;">
         <img src={siteIcon.src} alt="Site Logo" style="width: 32px; height: 32px; margin-right: 0.5rem;" loading="lazy" />
-        <span  style="font-size: 1.2rem; font-weight: bold;">{userName}</span>
+        <span style="font-size: 1.4rem; font-weight:bold;">{userName}</span>
       </div>
     </Link>
 
@@ -26,9 +20,7 @@ import Link from './Link.astro';
         {
           navItems.map((item) => (
             <li>
-              <a href={`/${item.toLowerCase()}`} style="text-decoration: none; color: inherit;">
-                {item}
-              </a>
+              <a href={`/${item.toLowerCase()}`} class="nav-link">{item}</a>
             </li>
           ))
         }
@@ -38,3 +30,16 @@ import Link from './Link.astro';
     <ThemeIcon></ThemeIcon>
   </div>
 </header>
+
+<style>
+.nav-link {
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #007BFF;
+}
+</style>
