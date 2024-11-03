@@ -1,0 +1,18 @@
+---
+const { href, class: className = '', target, unstyled } = Astro.props;
+const linkClasses = unstyled ? `${className} unstyled-link` : className;
+---
+
+<a href={href} class={linkClasses} target={target}>
+    <slot />
+</a>
+
+<style>
+.unstyled-link {
+  text-decoration: none;
+  color: inherit;
+}
+.unstyled-link:visited {
+  color: inherit;
+}
+</style>
