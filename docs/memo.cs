@@ -33,10 +33,3 @@ export default defineConfig({
   base: subfolder,
   outDir: `./ dist${ subfolder}`,
 });
-
-
-【タグの設定を外部ファイル化して、タグの名前とID名（スラッグ）を別で管理することでurlと表示名を分岐】
-export const tagsData = [
-  { tagName: "HTML", tagSlug: "html" },
-  { tagName: "マーケティング", tagSlug: "marketing" },
-];

@@ -1,5 +1,5 @@
 ---
-const navItems = ["Explore","Product", "About", , "Links"];
+import { navItemValues } from '../constants/navItem.ts';
 const userName = "kosaku hayashi";
 import siteIcon from '../assets/image/site-icon-transparent.svg';
 import ThemeIcon from './ThemeIcon.astro';
@@ -8,7 +8,7 @@ import Link from './Link.astro';
 
 <header style="padding:1rem; border-bottom:2.5px solid #ddd;">
   <div class="container" style="display:flex; justify-content:space-between; align-items:center; ">
-    <Link href="/" class="logo-link" unstyled>
+    <Link href="/" class="unstyled">
       <div style="display: flex; align-items: center;">
         <img src={siteIcon.src} alt="Site Logo" style="width: 32px; height: 32px; margin-right: 0.5rem;" loading="lazy" />
         <span style="font-size: 1.4rem; font-weight:bold;">{userName}</span>
@@ -18,7 +18,7 @@ import Link from './Link.astro';
     <nav>
       <ul style="display: flex; gap: 1rem; list-style: none; margin: 0; padding: 0;">
         {
-          navItems.map((item) => (
+          navItemValues.map((item) => (
             <li>
               <a href={`/${item.toLowerCase()}`} class="nav-link">{item}</a>
             </li>
