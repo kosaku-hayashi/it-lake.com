@@ -1,0 +1,27 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { extractTitleFromFilename } from '../../scripts/extractTitleFromFilename'
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('posts');
+  return allPosts.map((post:any) =>{
+    return ({
+      params:{ slug: post.data.customSlug},
+      props: { post},
+    })
+  })
+}
+
+const { post } = Astro.props as Props;
+const { Content } = await post.render();
+const pageTitle = extractTitleFromFilename(post.id);
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <Content />
+</BaseLayout>
