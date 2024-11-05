@@ -1,6 +1,18 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro"
+import PostCard from "../components/PostCard.astro";
+import { getCollection } from 'astro:content';
+const posts = await getCollection('posts');
 ---
 
-<BaseLayout pageTitle="Astro">
+<BaseLayout pageTitle="">
+    <ul>
+        {
+          posts.map((post) => (
+            <li>
+                <PostCard post={post}></PostCard>
+            </li>
+          ))
+        }
+      </ul>
 </BaseLayout>

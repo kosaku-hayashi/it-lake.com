@@ -1,0 +1,48 @@
+---
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+import type { CollectionEntry } from 'astro:content';
+import { extractDateAndSlug } from '../scripts/extractDateAndSlug';
+const { post } = Astro.props as Props;
+const {title, description, thumbnail, tags,updateDate} = post.data;
+const { pubDate, slug } = extractDateAndSlug(post.id);
+---
+
+<article style="display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #ddd;">
+    {post.data.thumbnail && (
+        <img src={thumbnail} alt={title} style="width: 150px; height: 100px; object-fit: cover;" />
+    )}
+
+    <div style="flex: 1;">
+        <h3 style="margin: 0 0 0.5rem 0; font-size: 1.25rem;">
+            <a href={`/posts/${slug}`} style="text-decoration: none; color: inherit;">
+                {title}
+            </a>
+        </h3>
+
+        <p style="color: #555; margin: 0 0 0.5rem 0;">{description}</p>
+
+        <div style="display: flex; align-items: center; font-size: 0.875rem; color: #888; gap: 0.5rem;">
+            <time datetime={pubDate}>{pubDate}</time>
+            {updateDate && (
+                <>
+                    <span>|</span>
+                    <time datetime={updateDate}>Updated: {updateDate}</time>
+                </>
+            )}
+            {tags && tags.length > 0 && (
+                <>
+                    <span>|</span>
+                    <ul style="display: inline; list-style: none; padding: 0; margin: 0; gap: 0.5rem;">
+                        {tags.map(tag => (
+                            <li style="display: inline;">#{tag}</li>
+                        ))}
+                    </ul>
+                </>
+            )}
+            <a href={`/posts/${slug}`} style="text-decoration: none; color: #0070f3; margin-left: auto;">Read more →</a>
+        </div>
+    </div>
+</article>
