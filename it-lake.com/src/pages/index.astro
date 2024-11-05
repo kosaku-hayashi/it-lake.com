@@ -6,7 +6,7 @@ const posts = await getCollection('posts');
 ---
 
 <BaseLayout pageTitle="">
-    <ul>
+    <ul class="unstyled-list">
         {
           posts.map((post) => (
             <li>
@@ -14,5 +14,5 @@ const posts = await getCollection('posts');
             </li>
           ))
         }
-      </ul>
+    </ul>
 </BaseLayout>

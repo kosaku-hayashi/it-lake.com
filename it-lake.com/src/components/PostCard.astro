@@ -4,7 +4,10 @@ interface Props {
 }
 
 import type { CollectionEntry } from 'astro:content';
-import { extractDateAndSlug } from '../scripts/extractDateAndSlug';
+import { extractDateAndSlug } from '../scripts/extractDateAndSlug.ts';
+import { tagToSlug } from '../scripts/tagAndSlugConverter.ts';
+import Link from './Link.astro';
+import TagIcon from './TagIcon.astro';
 const { post } = Astro.props as Props;
 const {title, description, thumbnail, tags,updateDate} = post.data;
 const { pubDate, slug } = extractDateAndSlug(post.id);
@@ -35,9 +38,12 @@ const { pubDate, slug } = extractDateAndSlug(post.id);
             {tags && tags.length > 0 && (
                 <>
                     <span>|</span>
-                    <ul style="display: inline; list-style: none; padding: 0; margin: 0; gap: 0.5rem;">
+                    <ul style="display:flex; flex-direction: row; list-style: none; padding: 0; margin: 0; gap:12px">
                         {tags.map(tag => (
-                            <li style="display: inline;">#{tag}</li>
+                            <Link href={`/tags/${tagToSlug(tag)}`} class="no-underline">
+                                <TagIcon width="12" height="12"></TagIcon>
+                                <p style="display:inline; margin-left: -2px;">{tag}</p>
+                            </Link>
                         ))}
                     </ul>
                 </>
