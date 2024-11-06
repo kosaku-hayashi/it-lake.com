@@ -1,0 +1,49 @@
+---
+const { class: className, ...rest } = Astro.props;
+import profileIcon from '../assets/image/hotoriicon.jpg';
+import GithubIcon from './icon/GithubIcon.astro';
+import XIcon from './icon/XIcon.astro';
+import Tag from './Tag.astro';
+import Link from './Link.astro';
+
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { getAllTags, tagToSlug, slugToTag } from '../scripts/tags.ts';
+import { extractDateAndSlug } from '../scripts/extractDateAndSlug';
+import { getAllArchives } from "../scripts/archives.ts";
+const posts = await getCollection('posts');
+const tags = getAllTags(posts);
+const archives = getAllArchives(posts);
+---
+
+<aside class={className} {...rest} style="display: flex; flex-direction: column; gap:80px">
+    <div>
+        <img src={profileIcon.src} alt='profile-icon' style="width: 100px; height: 100px; object-fit: cover; margin-bottom: -10px;" />
+        <h2 style="font-size: 1.1rem; margin-bottom: -10px;">Kosaku Hayashi</h2>
+        <p>.NETの技術が好きな個人開発者です。MAUIとBlazorが好み。</p>
+        <div style="display: flex; flex-direction: row; gap:10px">
+            <GithubIcon></GithubIcon>
+            <XIcon></XIcon>
+        </div>
+    </div>
+
+    <ul style="display:flex; flex-direction: column; list-style: none; padding: 0; margin: 0; gap:10px">
+        {
+            tags.map((tag) => <Tag tagName={tag}></Tag>)
+        }
+    </ul>
+
+    <ul style="display: flex; flex-direction: column; padding:0; margin:0; gap:10px">
+        {
+            archives.map(({ year, month }) => {
+            const slug = `${year}/${month.toString().padStart(2, '0')}`;
+            const display = `${year}年${month}月`;
+            return (
+                <li>
+                    {/* <a href={`/archive/${slug}`}>{display}</a> */}
+                    <a>{display}</a>
+                </li>
+            );
+            })
+        }
+    </ul>
+</aside>

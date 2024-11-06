@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro"
+import Sidebar from "../components/Sidebar.astro";
 import "../styles/global.css";
 
 interface Props{
@@ -18,13 +19,16 @@ const { pageTitle } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
   </head>
-  <body style="display: flex; flex-direction: column; min-height: 100vh; margin:0">
+  <body class="body">
     <Header />
-    <main style="flex: 1;">
-        <div class="container">
-            <h1>{pageTitle}</h1>
-            <slot />
+    <main class="main">
+      <div class="container content-with-sidebar">
+        <div style="flex: 6;">
+          <h1>{pageTitle}</h1>
+          <slot />
         </div>
+        <Sidebar class="sidebar" /> <!-- サイドバーを追加 -->
+      </div>
     </main>
     <Footer />
 
@@ -33,3 +37,43 @@ const { pageTitle } = Astro.props;
     </script>
   </body>
 </html>
+
+<style>
+.body{
+  display: flex;
+  flex-direction:  column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.main{
+  flex: 1;
+}
+
+
+.content-with-sidebar {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.sidebar {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 1rem;
+  /* border-left: 0px solid #eaeaea; */
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .content-with-sidebar {
+      flex-direction: column;
+  }
+
+  .sidebar {
+      border-left: none;
+      border-top: 1px solid #eaeaea;
+  }
+}
+</style>

@@ -1,20 +1,12 @@
 ---
-const { href, class: className = '', target } = Astro.props;
+const { href, target, class: className, ...rest } = Astro.props;
 ---
 
-<a href={href} class={className} target={target}>
+<a href={href} target={target} class={className} {...rest}>
     <slot />
 </a>
 
 <style>
-.unstyled {
-  text-decoration: none;
-  color: inherit;
-}
-.unstyled:visited {
-  color: inherit;
-}
-
 .no-underline{
   text-decoration: none;
 }
