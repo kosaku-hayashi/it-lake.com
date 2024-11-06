@@ -1,31 +1,23 @@
 Todo
-サイドバーを作成する（簡単なプロフィール タグ 月次アーカイブ 追従する記事の目次）
+Prismのスタイルシートを用いてcsharpコードにVSと同じシンタックスハイライトを設定する
 
 
-【三項演算子の書き方】
----
-const visible = true;
----
-
-{ visible && < p > 表示されます </ p >}
-visible ? < p > 表示されます </ p > : < p > こっちは表示されません！</ p >
-
-【TSでコンポーネントのpropsを型定義】
----
-export interface Props
-{
-    title: string;
-	body: string;
-	href: string;
-}
-
-const { href, title, body } = Astro.props;
----
-
-【ドメイン直下の / blogディレクトリにページを生成したい場合】
+【@astrojs/sitemapによるサイトマップ生成でnoindexを考慮】
 // astro.config.mjs
-const subfolder = '/blog/'
+import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
+
 export default defineConfig({
-  base: subfolder,
-  outDir: `./ dist${ subfolder}`,
+  integrations: [
+    sitemap({
+      // カスタムフィルタを追加
+      filter: (page) => {
+        // ページのフロントマターから `noindex` を取得
+        const { noindex } = page.frontmatter;
+        // `noindex` が true でないページのみサイトマップに含める
+        return !noindex;
+      },
+      // その他のオプションがあればここに追加
+    }),
+  ],
 });

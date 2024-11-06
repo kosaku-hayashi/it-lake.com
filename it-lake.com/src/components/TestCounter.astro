@@ -1,0 +1,17 @@
+---
+const { client = 'load' } = Astro.props;
+---
+<button id="counter-button">カウント: <span id="count">0</span></button>
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', () => {
+    const button = document.getElementById('counter-button');
+    const countSpan = document.getElementById('count');
+    let count = 0;
+
+    button.addEventListener('click', () => {
+      count += 1;
+      countSpan.textContent = count;
+    });
+  });
+</script>
