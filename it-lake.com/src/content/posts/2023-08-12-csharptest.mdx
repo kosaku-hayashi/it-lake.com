@@ -4,6 +4,7 @@ description: 'これはC#のテスト記事です。'
 thumbnail: ''
 tags: ["C#"]
 updateDate: '2023-08-23' # yyyymmddのフォーマットで記入
+showToc: false
 noIndex: true
 ---
 
@@ -12,6 +13,7 @@ noIndex: true
 以下は、C#での基本的なHello Worldプログラムの例です。
 
 ```csharp
+// test/main.cs
 using System;
 
 public class HelloWorld
@@ -19,8 +21,16 @@ public class HelloWorld
     public static void Main()
     {
         Console.WriteLine("Hello, World!");
+        bool test = true;
+        string test2 = Console.ReadKey();
     }
 }
 ```
 
+
+
 とても簡潔なコードですね。
+
+
+PrismタグよりMarkdownコードブロックの方が記述が楽です。コードブロックでPrismを使用したい場合は
+markdown.syntaxHighlightingを設定するといいです。

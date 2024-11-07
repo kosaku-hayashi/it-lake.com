@@ -12,7 +12,7 @@ color: #fff;
 }
 
 .container {
-  max-width: 1300px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1rem;
@@ -25,3 +25,21 @@ color: #fff;
   padding: 0;
   margin: 0;
 }
+
+pre {
+  padding: 14px;
+  border-radius: 8px;
+}
+
+code{
+  font-family: 'Consolas', 'Lucida Sans Unicode','Lucida Grande';
+  font-size: large;
+}
+
+/* @font-face {
+  font-family: 'GenShinGothic';
+  src: url('/fonts/GenShinGothic-Regular.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+} */

@@ -4,16 +4,22 @@ description: 'これはMDXのテスト記事です。'
 thumbnail: ''
 tags: ["MDX"]
 updateDate: '2023-08-23' # yyyymmddのフォーマットで記入
+showToc: false
 noIndex: true
 ---
 
 import Link from '../../components/Link.astro'
 import Counter from '../../components/TestCounter.astro'
+export const title = '変数'
 
-<div style='margin-bottom: 50px'><Link href='/'>記事にコンポーネントを埋め込むことが出来ます！</Link></div>
+"{title}"を使用することが出来ます。
+このように"{frontmatter.title}"フロントマターの値も入力できます。
 
+<p style='margin-top:50px; margin-bottom:50px'><Link href='/'>記事にコンポーネントを埋め込むことが出来ます！</Link></p>
 
 インタラクティブなコンテンツも組み込めますよ！！！
-<div style='margin-bottom: 50px'><Counter client:load /></div>
+<p style='margin-bottom:50px'><Counter client:load /></p>
 
 {true && "trueならこんにちは!"}
+
+<div innerHtml="<div><p>RTX4070</p></div>"></div>

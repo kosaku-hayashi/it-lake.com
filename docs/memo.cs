@@ -1,5 +1,5 @@
 Todo
-Prismのスタイルシートを用いてcsharpコードにVSと同じシンタックスハイライトを設定する
+目次を表示
 
 
 【@astrojs/sitemapによるサイトマップ生成でnoindexを考慮】

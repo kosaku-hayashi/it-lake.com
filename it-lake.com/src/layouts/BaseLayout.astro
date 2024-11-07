@@ -15,6 +15,10 @@ const { pageTitle } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <slot name=""></slot>
+    <!-- <link rel="stylesheet" href="/prism/vsc-dark-plus.css" /> -->
+    <!-- <link rel="stylesheet" href="/prism/material-dark.css" />
+    <link rel="stylesheet" href="/prism/coldark-dark.css" /> -->
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
@@ -32,9 +36,7 @@ const { pageTitle } = Astro.props;
     </main>
     <Footer />
 
-    <script>
-      import "../scripts/menu.ts";
-    </script>
+    <!-- <script src="/prism.js" is:inline></script> -->
   </body>
 </html>
 
@@ -48,6 +50,7 @@ const { pageTitle } = Astro.props;
 
 .main{
   flex: 1;
+  background-color:#e6f4f4;
 }
 
 

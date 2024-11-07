@@ -6,8 +6,10 @@ import mdx from '@astrojs/mdx';
 export default defineConfig({
   integrations: [mdx()],
   markdown: {
+    syntaxHighlight: 'shiki',
     shikiConfig: {
       theme: 'slack-dark',
+      wrap:false, // 水平スクロールを防止するために行末で折り返す
     },
   },
 });
