@@ -1,7 +1,20 @@
 Todo
-インポートしたスタイルシートで記事の見出しにのみスタイルを適用する
-https://docs.astro.build/ja/guides/styling/#%E5%A4%96%E9%83%A8%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB
+記事のh1直下にタイムスタンプとタグ（リンク付き）を表示
+タグページの記事を降順に
+Linksページ削除
+サイトの背景色調整
+Exploreページ作成
+Aboutページ作成
+ダークテーマ対応
+Astro Awesomeチェック
+Githubコメント追加
 
+WPサイトをローカルとクラウドにバックアップ（サーバー領域とMySQL）
+XServer設定の保存
+記事と画像移植
+
+RSSフィード追加
+サイトマップ作成
 
 
 【@astrojs/sitemapによるサイトマップ生成でnoindexを考慮】
@@ -44,6 +57,10 @@ const { class: className, ...rest } = Astro.props;
 ---
 
 <aside class={className} {...rest} style="display: flex; flex-direction: column; gap:80px">
+
+【記事ページのメインコンテンツのみにスタイルを適用する】
+外部のグローバルスタイルシートを
+https://docs.astro.build/ja/guides/styling/#%E5%A4%96%E9%83%A8%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB
 
 
 これからmarkdown形式の画像を、特定のAstroコンポーネントに書き換える作業をしていただきます。
