@@ -13,7 +13,7 @@ function buildHierarchy(headings: MarkdownHeading[]) {
     slug: string
     text: string
   }[] = []
-  const parentHeadings = new Map()
+  const parentHeadings = new Map<number, any>()
 
   headings.forEach((h: MarkdownHeading) => {
     const heading = { ...h, subheadings: [] }
@@ -22,8 +22,11 @@ function buildHierarchy(headings: MarkdownHeading[]) {
 
     if (heading.depth === 2) {
       toc.push(heading)
-    } else {
-      parentHeadings.get(heading.depth - 1).subheadings.push(heading)
+    } else if (heading.depth === 3) {
+      const parent = parentHeadings.get(heading.depth - 1)
+      if (parent) {
+        parent.subheadings.push(heading)
+      }
     }
   })
 
@@ -32,45 +35,34 @@ function buildHierarchy(headings: MarkdownHeading[]) {
 
 const headings = buildHierarchy(Astro.props.headings ?? [])
 ---
+<nav class="toc" aria-label="Table of Contents">
+  <ol>
+    {headings.map((heading) => (
+      <TocItem key={heading.slug} heading={heading} />
+    ))}
+  </ol>
+</nav>
 
 <style>
-    .toc {
-      border: 2px solid #efefef;
-      padding: 16px;
-      background-color: #fafafa;
-    }
 
-    .toc ol {
-      list-style: none;
-      counter-reset: toc;
-      padding-left: 32px;
-    }
+.toc {
+  border: 2px solid #efefef;
+  padding: 16px;
+  background-color: #fafafa;
+  counter-reset: section; /* カウンターの初期化をここに移動 */
+}
 
-    .toc ol li {
-      counter-increment: toc;
-      margin-bottom: 8px;
-    }
+.toc ol {
+  list-style: none;
+  padding-left: 32px;
+}
 
-    .toc ol li:before {
-      content: counters(toc, ".") " ";
-      margin-right: 8px;
-      color: #555;
-    }
+.toc a {
+  text-decoration: none;
+  color: #017acc;
+}
 
-    .toc a {
-      text-decoration: none;
-      color: #007acc;
-    }
-
-    .toc a:hover {
-      text-decoration: underline;
-    }
-  </style>
-
-  <nav class="toc" aria-label="Table of Contents">
-    <ol>
-      {headings.map((heading) => (
-        <TocItem key={heading.slug} heading={heading} />
-      ))}
-    </ol>
-  </nav>
+.toc a:hover {
+  text-decoration: underline;
+}
+</style>

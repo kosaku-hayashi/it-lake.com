@@ -7,9 +7,9 @@ import Tag from './Tag.astro';
 import Link from './Link.astro';
 
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { getAllTags, tagToSlug, slugToTag } from '../scripts/tags.ts';
+import { getAllTags, tagToSlug, slugToTag } from '../scripts/tags';
 import { extractDateAndSlug } from '../scripts/extractDateAndSlug';
-import { getAllArchives } from "../scripts/archives.ts";
+import { getAllArchives } from "../scripts/archives";
 const posts = await getCollection('posts');
 const tags = getAllTags(posts);
 const archives = getAllArchives(posts);

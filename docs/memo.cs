@@ -1,5 +1,7 @@
 Todo
-目次を表示
+インポートしたスタイルシートで記事の見出しにのみスタイルを適用する
+https://docs.astro.build/ja/guides/styling/#%E5%A4%96%E9%83%A8%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB
+
 
 
 【@astrojs/sitemapによるサイトマップ生成でnoindexを考慮】
@@ -42,3 +44,14 @@ const { class: className, ...rest } = Astro.props;
 ---
 
 <aside class={className} {...rest} style="display: flex; flex-direction: column; gap:80px">
+
+
+これからmarkdown形式の画像を、特定のAstroコンポーネントに書き換える作業をしていただきます。
+元の文字列と変換後の期待結果を下記に示すので、この通りにお願いします。
+また、説明等は不要なので、変換結果のみ提示してください。それでは準備はよろしいですか？
+
+【Markdown形式の画像】
+![raspberrypi-imager](https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-imager.jpg)
+
+【変換結果】
+<Image src="https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-imager.jpg" alt="raspberrypi-imager"/>

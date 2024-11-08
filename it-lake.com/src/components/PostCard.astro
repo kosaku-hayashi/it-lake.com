@@ -4,8 +4,8 @@ interface Props {
 }
 
 import type { CollectionEntry } from 'astro:content';
-import { extractDateAndSlug } from '../scripts/extractDateAndSlug.ts';
-import { tagToSlug } from '../scripts/tags.ts';
+import { extractDateAndSlug } from '../scripts/extractDateAndSlug';
+import { tagToSlug } from '../scripts/tags';
 import Tag from './Tag.astro';
 const { post } = Astro.props as Props;
 const {title, description, thumbnail, tags,updateDate} = post.data;

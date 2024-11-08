@@ -16,3 +16,37 @@ const { heading } = Astro.props
     )
   }
 </li>
+
+<style>
+
+li {
+  counter-increment: section;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+li::before {
+  content: counter(section) ". ";
+  position: absolute;
+  left: -32px;
+}
+
+ol {
+  list-style: none;
+  counter-reset: subsection;
+  padding-left: 32px;
+}
+
+ol > li {
+  counter-increment: subsection;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+ol > li::before {
+  content: counter(section) "." counter(subsection) " ";
+  position: absolute;
+  left: -32px;
+}
+</style>

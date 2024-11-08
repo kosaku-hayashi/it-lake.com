@@ -43,3 +43,78 @@ code{
   font-style: normal;
   font-display: swap;
 } */
+
+
+
+
+/* テーブルのレスポンシブコンテナ */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+/* テーブルの基本スタイル */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  text-align: left;
+}
+
+/* ヘッダーセルのスタイル */
+th {
+  background-color: #f5f5f5;
+  padding: 0.75rem;
+  border-bottom: 2px solid #ddd;
+  border-right: 1px solid #ddd; /* 右側に枠線を追加 */
+}
+
+/* 最後のヘッダーセルの枠線を削除 */
+th:last-child {
+  border-right: none;
+}
+
+/* データセルのスタイル */
+td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd; /* 右側に枠線を追加 */
+}
+
+/* 最後のデータセルの枠線を削除 */
+td:last-child {
+  border-right: none;
+}
+
+/* ストライプ効果 */
+tbody tr:nth-child(odd) {
+  background-color: #fafafa;
+}
+
+/* レスポンシブ調整 */
+@media (max-width: 600px) {
+  table {
+    font-size: 0.9rem;
+  }
+}
+
+/* 引用のスタイル */
+blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  background-color: #f9f9f9; /* 背景色を薄いグレーに設定 */
+  border-left: 5px solid #ccc; /* 左側に縦線を追加 */
+  font-style: italic; /* 斜体にする場合 */
+  color: #555; /* テキストの色を調整 */
+}
+
+/* レスポンシブ対応（必要に応じて） */
+@media (max-width: 600px) {
+  blockquote {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+}
