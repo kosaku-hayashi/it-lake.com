@@ -8,7 +8,7 @@ const postCollection = defineCollection({
     thumbnail: z.string(),
     tags: z.array(z.string()),
     updateDate: z.string(),
-    showToc: z.boolean(),
+    showSideToc: z.boolean(),
     noIndex: z.boolean(),
   }),
 });

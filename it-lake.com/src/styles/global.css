@@ -12,7 +12,7 @@ color: #fff;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1100px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1rem;
@@ -33,7 +33,7 @@ pre {
 
 code{
   font-family: 'Consolas', 'Lucida Sans Unicode','Lucida Grande';
-  font-size: large;
+  font-size: medium;
 }
 
 /* @font-face {

@@ -17,8 +17,9 @@ const { pageTitle } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <slot name=""></slot>
     <!-- <link rel="stylesheet" href="/prism/vsc-dark-plus.css" /> -->
-    <!-- <link rel="stylesheet" href="/prism/material-dark.css" />
-    <link rel="stylesheet" href="/prism/coldark-dark.css" /> -->
+    <!-- <link rel="stylesheet" href="/prism/material-dark.css" /> -->
+    <!-- <link rel="stylesheet" href="/prism/coldark-dark.css" /> -->
+    <!-- <link rel="stylesheet" href="/prism/xonokai.css" /> -->
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
@@ -27,11 +28,11 @@ const { pageTitle } = Astro.props;
     <Header />
     <main class="main">
       <div class="container content-with-sidebar">
-        <div style="flex: 6;">
+        <div style="flex: 6; max-width: 820px; background-color: #ffffff; padding:15px">
           <h1>{pageTitle}</h1>
           <slot />
         </div>
-        <Sidebar class="sidebar" /> <!-- サイドバーを追加 -->
+        <Sidebar class="sidebar" />
       </div>
     </main>
     <Footer />
@@ -50,13 +51,14 @@ const { pageTitle } = Astro.props;
 
 .main{
   flex: 1;
-  background-color:#e6f4f4;
+  background-color:#E6F4F4;
 }
 
 
 .content-with-sidebar {
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
   gap: 2rem;
   padding: 2rem 0;
 }

@@ -1,0 +1,76 @@
+---
+import type { MarkdownHeading } from 'astro'
+import TocItem from './TocItem.astro'
+
+interface Props {
+  headings: MarkdownHeading[]
+}
+
+function buildHierarchy(headings: MarkdownHeading[]) {
+  const toc: {
+    depth: number
+    subheadings: MarkdownHeading[]
+    slug: string
+    text: string
+  }[] = []
+  const parentHeadings = new Map()
+
+  headings.forEach((h: MarkdownHeading) => {
+    const heading = { ...h, subheadings: [] }
+
+    parentHeadings.set(heading.depth, heading)
+
+    if (heading.depth === 2) {
+      toc.push(heading)
+    } else {
+      parentHeadings.get(heading.depth - 1).subheadings.push(heading)
+    }
+  })
+
+  return toc
+}
+
+const headings = buildHierarchy(Astro.props.headings ?? [])
+---
+
+<style>
+    .toc {
+      border: 2px solid #efefef;
+      padding: 16px;
+      background-color: #fafafa;
+    }
+
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+      padding-left: 32px;
+    }
+
+    .toc ol li {
+      counter-increment: toc;
+      margin-bottom: 8px;
+    }
+
+    .toc ol li:before {
+      content: counters(toc, ".") " ";
+      margin-right: 8px;
+      color: #555;
+    }
+
+    .toc a {
+      text-decoration: none;
+      color: #007acc;
+    }
+
+    .toc a:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+  <nav class="toc" aria-label="Table of Contents">
+    <ol>
+      {headings.map((heading) => (
+        <TocItem key={heading.slug} heading={heading} />
+      ))}
+    </ol>
+  </nav>

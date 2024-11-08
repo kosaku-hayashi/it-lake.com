@@ -1,0 +1,392 @@
+---
+title: 'SDカードリーダーだけでRaspberry PiのインストールとSSH接続をする'
+description: '外出先からアクセスできるファイルサーバーが追加で欲しくなったので、小型かつ安価で導入できるRaspberry Pi 4（以下ラズパイ）を購入しました。今回は、SDカードにWifiやSSH接続を可能にする設定ファイルを作成して、起動後にSSH接続ができる状態にしていこうと思います。'
+thumbnail: 'https://it-lake.com/wp-content/uploads/2022/11/sdcardreader-raspberrypi-install-768x432.jpg'
+tags: ["Raspberry Pi"]
+updateDate: '2022-11-20' # yyyymmddのフォーマットで記入
+showSideToc: false
+noIndex: false
+---
+
+外出先からアクセスできるファイルサーバーが追加で欲しくなったので、小型かつ安価で導入できるRaspberry Pi 4（以下ラズパイ）を購入しました。
+
+通常、ラズパイのOSインストールおよび各種設定はGUIかターミナル操作で行うため、USB接続のマウスキーボード・ディスプレイが必要です。公式ドキュメントでも、外部機器を使用したセットアップの方法が解説してあり、この通りに進めていけばまず問題はありません。
+
+しかし、手元に有線のマウスキーボードが無く、セットアップのためだけにディスプレイを購入するのも気が引けます。
+今回は、SDカードにWifiやSSH接続を可能にする設定ファイルを作成して、起動後にSSH接続ができる状態にしていこうと思います。
+
+<TOC headings={getHeadings()} />
+
+準備したもの
+------
+
+* **ラズパイ4**
+* **USB TypeC対応 ACアダプター（5V/3.0A）**
+* **micro SDカード（速度規格Class10推奨）**
+* **micro SDカードリーダー（PCにSDカードスロットがあれば不要）**
+
+上記4つは最低限必要です。
+今回はラズパイ4を使用していますが、2や3、zeroなどの別のモデルでも同じやり方でセットアップ可能です。
+
+現在流通しているmicroSDカードは、Class10規格対応のものがほとんどですが、購入する際は念のためチェックしておきましょう。また、ドライブレコーダーや監視カメラ用の高耐久モデルを選択するのもありです。MLC設計やTBW値の高いフラッシュメモリは、寿命が使い方に依存するとは言え、比較的壊れにくいです。
+
+SDカードリーダーは、microSDとUSB端子（TypeAやTypeC）に対応しているものであれば何でもいいです。SDカードにはOSの設定ファイルを書き込むだけなので、USB3.0以上の規格は必要なく、USB2.0の転送速度で十分です。
+
+今回セットアップに使うものは、ラズパイ4 model Bの2GB、SanDiskのmicroSDカード（32GB）、バッファローのSDカードリーダー（USB2.0）になります。
+
+![raspberrypi-installpart](https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-install-part.jpg)
+
+SDカードにRaspberry Pi OSをインストールする
+------------------------------
+
+公式から、**[Raspberry Pi Imager](https://www.raspberrypi.com/software/)**をダウンロードします。
+SDカードのフォーマットから、OSの書き込みまで行ってくれる便利なツールです。
+
+![raspberrypi-imager-download](https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-imager-download-e1668394179671.jpg)
+
+インストーラーをを起動し、Raspberry Pi Imagerのインストールが完了したら起動させ、インストールするOSの種類と対象ストレージを選択していきます。
+
+![raspberrypi-imager](https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-imager.jpg)
+
+OSの選択画面には、ラズパイOSだけでなく、Ubuntuやメディアサーバー用OSなど複数用意されています。今回は、GUIなしの「Raspberry Pi OS Lite (64-bit)　」をインストールします。
+グラフィック出力が不要になる分、発熱が抑えられてより省電力になるので、サーバー用途であればLite版をおすすめします。
+
+![raspberrypi-os](https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-os-select-e1668394291186.jpg)
+
+![raspberrypi-os-list](https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-os-e1668394335375.jpg)
+
+ストレージ選択画面では、SDカードリーダーに接続してあるSDカードが表示されるはずなのでそちらを選択。僕の環境ではPCのRAMディスクも表示されました。このように複数機器表示されていると、間違いやすいのでご注意を。
+
+![raspberrypi-imager-strage-select](https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-imager-strage.jpg)
+
+Bootフォルダ内にWifiとSSH接続の設定ファイルを書き込む
+--------------------------------
+
+起動後にWifiとSSH接続を可能にするには、Imagerのオプションを入力する方法と、SDカードに直接設定ファイルを書き込む方法の２つがあります。新規でインストールする場合はImagerのオプションを用いる方法が簡単で確実ですが、後者の方法もインストール後に再設定を行いたい時に使えそうです。
+
+※ もし、有線LANで運用する場合はWifiの設定は行う必要はありません。
+
+### Imagerのオプションから設定する（推奨）
+
+Imagerの最初の画面から、Ctrl＋Shift＋Xを押すことで詳細オプションの画面に飛びます。ここから、WifiおよびSSH接続の設定が可能です。
+
+![raspberrypi-imager-advanceoption](https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-imager-options.jpg)
+
+#### **設定項目の説明**
+
+col 1               | col 2
+------------------- | --------------------------------------------------------------------
+カスタマイズオプション         | ImagerでのOSインストール時に、このオプションの設定を常に反映するかどうか
+ホスト名                | ラズパイのホスト名。デフォルトは「raspberrypi.local」だが、
+ラズパイが複数ある場合は変更推奨。
+SSHを有効化する           | 外部からのSSH接続を可能にする設定。パスワード認証と公開鍵認証が選択でき、
+後者の場合は公開鍵を入力する
+ユーザー名とパスワード
+を設定する | インストール時に作成されるrootユーザーの情報。
+デフォルト設定は危険性が高いため、ユーザー名とパスワード共に設定することを推奨。
+Wifiを設定する           | Wifi接続の情報。（SSIDとパスワード）
+無線LANの周波数を指定する、Wifiを使う国の項目は「JP」を設定する
+ロケール設定をする           | タイムゾーンとキーボードレイアウトの設定。チェックを入れることを推奨。
+JISキーボードを使用する場合は「jp」を設定する。
+永続的な設定              | このアプリケーション自体の設定。テレメトリーは、統計情報収集の許可設定なので
+ON/OFFどちらでも問題なし。
+
+SSH接続では、パスワード認証と公開鍵認証を選択できます。秘密鍵の管理さえ徹底していれば安全性が非常に高く、パスワード入力の手間も省けるため、公開鍵認証がよく用いられます。ラジオボタンを押して「ユーザー〇〇のためのauthorized_kes」に作成済みの公開鍵を入力することで設定可能です。もし、LAN内にLAN外からアクセスされるデバイスが無い場合は、パスワード認証でも問題ないでしょう。
+
+ユーザー名とパスワードは、デフォルト設定から変更することを強くおすすめします。デフォルト設定ではパスワードがないため、実質外部から誰でもログインできる状態となります。
+
+インストール後のbootフォルダを確認してみると、オプションで設定した内容が記述されたfirstrun.shファイルが生成されます。この状態でSDカードをラズパイに入れてbootすれば、キーボードやディスプレイ無しでSSH接続が可能になります。Imagerを使えば簡単ですね。
+
+![raspberrypi-firstrun](https://it-lake.com/wp-content/uploads/2022/11/boot-firstrun.sh_.jpg)
+
+```shellscript
+# firstrun.sh
+#!/bin/bash
+
+set +e
+
+CURRENT_HOSTNAME=`cat /etc/hostname | tr -d " \t\n\r"`
+if [ -f /usr/lib/++++++-sys-mods/imager_custom ]; then
+   /usr/lib/++++++-sys-mods/imager_custom set_hostname ++++++
+else
+   echo ++++++ >/etc/hostname
+   sed -i "s/++++++.*$CURRENT_HOSTNAME/++++++\++++++/g" /etc/hosts
+fi
+FIRSTUSER=`getent passwd 1000 | cut -d: -f1`
+FIRSTUSERHOME=`getent passwd 1000 | cut -d: -f6`
+if [ -f /usr/lib/++++++-sys-mods/imager_custom ]; then
+   /usr/lib/++++++-sys-mods/imager_custom enable_ssh
+else
+   systemctl enable ssh
+fi
+if [ -f /usr/lib/userconf-pi/userconf ]; then
+   /usr/lib/userconf-pi/userconf '++++++' '++++++'
+else
+   echo "$FIRSTUSER:"'++++++' | chpasswd -e
+   if [ "$FIRSTUSER" != "++++++" ]; then
+      usermod -l "++++++" "$FIRSTUSER"
+      usermod -m -d "/home/++++++" "++++++"
+      groupmod -n "++++++" "$FIRSTUSER"
+      if grep -q "^autologin-user=" /etc/lightdm/lightdm.conf ; then
+         sed /etc/lightdm/lightdm.conf -i -e "s/^autologin-user=.*/autologin-user=++++++/"
+      fi
+      if [ -f /etc/systemd/system/getty@tty1.service.d/autologin.conf ]; then
+         sed /etc/systemd/system/getty@tty1.service.d/autologin.conf -i -e "s/$FIRSTUSER/++++++/"
+      fi
+      if [ -f /etc/sudoers.d/010_pi-nopasswd ]; then
+         sed -i "s/^$FIRSTUSER /++++++ /" /etc/sudoers.d/010_pi-nopasswd
+      fi
+   fi
+fi
+if [ -f /usr/lib/++++++-sys-mods/imager_custom ]; then
+   /usr/lib/++++++-sys-mods/imager_custom set_wlan '++++++' '++++++' 'JP'
+else
+cat >/etc/wpa_supplicant/wpa_supplicant.conf << 'WPAEOF'
+country=JP
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+ap_scan=1
+
+update_config=1
+network={
+	ssid="++++++"
+	psk=++++++
+}
+# 続く
+```
+
+### 直接設定ファイルを作成する
+
+Imagerにより作成されたbootフォルダ直下に、直接設定ファイルを作成する方法です。新規インストールする場合は、ファイル作成時に記述ミスをする可能性があるのでImagerのオプションを使うことが望ましいです。しかし、誤ってsshを無効化してしまい、VNCでもログインする手立てがないといった状況にはこの手法が使えます。
+
+OSインストール後は、 SDカードにファイルがいくつか作成されていると思います。この場所に設定ファイルを追加していきます。
+
+![raspberrypi-imager-boot](https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-imager-boot.jpg)
+
+#### SSHを有効化する
+
+<div class="paragraph">
+    > When this file is present, SSH will be enabled on boot. The contents don’t matter, it can be empty. SSH is otherwise disabled by default.
+
+    **[Raspberry Pi Documentation](https://www.raspberrypi.com/documentation/computers/configuration.html#setting-up-a-headless-raspberry-pi)**
+</div>
+
+boot時に「ssh」という名前のファイルが存在すれば、SSHを有効化して起動してくれます。ファイルの中身も空っぽで、拡張子も不要です。
+
+これは新規インストール時のみの仕様ではなく、bootする度に処理が走るので、SSHを有効化する方法の1つとして覚えておいて損はありません。既に運用中のマシンでSSHが有効化されることを確認しています。
+
+#### Wifiを有効化する
+
+> You will need to define a&nbsp;`wpa_supplicant.conf`&nbsp;file for your particular wireless network. Put this file onto the boot folder of the SD card. When the Raspberry Pi boots for the first time, it will copy that file into the correct location in the Linux root file system and use those settings to start up wireless networking.
+
+**[Raspberry Pi Documentation](https://www.raspberrypi.com/documentation/computers/configuration.html#setting-up-a-headless-raspberry-pi)**
+
+「wpa_supplicant.conf」という名前のファイルを作成し、下記のようにWifiの接続情報を記述します。
+
+```
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+country=JP
+update_config=1
+
+network={
+        ssid="○○○○"  # アクセスポイントの名前
+        psk="○○○○"   # パスワード
+        # ↑上記ssid,pskは必須項目
+
+        # proto=RSN        暗号化プロトコル
+        # key_mgmt=WPA-PSK 暗号化方式
+        # pairwise=CCMP    ユニキャスト用暗号化方式
+        # auth_alg=OPEN    認証アルゴリズム
+}
+```
+
+最低限、SSID（ssid）とパスワード（psk）が設定されていれば起動後にWifiに接続することができます。
+
+このファイルが、boot時に/etc/wpa_supplicant/wpa_supplicant.confを上書きし、以降、Wifi接続情報は上書きされたファイルを参照するようになります。なお、bootフォルダ直下に作成されたwpa_supplicant.confは起動後に破棄されます。
+
+平文のパスワードを記入するのに抵抗がある場合は、代わりに下記のツールで取得した256bitのハッシュ値を使用できます。SSIDとパスワードの組をハッシュ関数に通し、そこで得られた256bitのキーをpskに入力します。なお、ハッシュ値を用いる場合は二重引用符（""）は必要ありません。
+
+下記のツールで入力したSSIDとパスワードが外部に送信されることはなく、コンピュータ上でJavaScript関数により計算、出力されるので安心です。開発者ツールで確認しても、HTMLページの取得以外はネットワーク通信は行われていません。
+
+**[WPA key calculation](http://jorisvr.nl/wpapsk.html)**
+
+![wpa-key-calculation](https://it-lake.com/wp-content/uploads/2022/11/wpa-key-calculation-1200x621.jpg)
+
+外部からSSHで接続してみる
+--------------
+
+今回はImagerのオプションで設定した方法を試してみます。ホスト名はデフォルトのraspberrypi.localとし、SSHは公開鍵認証での接続です。また、Wifiの設定が適用されているかをチェックするため、LANケーブルは接続しません。
+
+![bootraspberrypi](https://it-lake.com/wp-content/uploads/2022/11/boot-raspberrypi.jpg)
+
+公式ドキュメントでは、Wifiに接続されるまで起動してから最大5分掛かると明記されていたので少し待機します。僕の環境では1分くらい待ってルーターのワイヤレスデバイス一覧に出現しました。では、PowerShellでホスト名を指定して下記のようにpingを飛ばしてみます。
+
+```powershell
+PS C:\Users\+++> ping -4 raspberrypi.local
+
+raspberrypi.local [192.168.0.127]に ping を送信しています 32 バイトのデータ:
+192.168.0.127 からの応答: バイト数 =32 時間 =99ms TTL=64
+192.168.0.127 からの応答: バイト数 =32 時間 =23ms TTL=64
+192.168.0.127 からの応答: バイト数 =32 時間 =3ms TTL=64
+192.168.0.127 からの応答: バイト数 =32 時間 =26ms TTL=64
+
+192.168.0.127 の ping 統計:
+    パケット数: 送信 = 4、受信 = 4、損失 = 0 (0% の損失)、
+ラウンド トリップの概算時間 (ミリ秒):
+    最小 = 3ms、最大 = 99ms、平均 = 37ms
+```
+
+ホスト名でpingが返ってこない場合
+ちゃんと返ってきました。続いてssh接続を試してみます。
+
+```powershell
+PS C:\Users\+++> ssh raspberrypi.local
+Linux raspberrypi 5.15.61-v8+ #1579 SMP PREEMPT Fri Aug 26 11:16:44 BST 2022 aarch64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sat Nov 12 17:44:39 2022 from 192.168.0.177
++++@raspberrypi:~ $
+```
+
+問題なく接続できました。もし、秘密鍵にパスフレーズを設定している場合は、追加の認証で秘密鍵のパスフレーズが求められます。
+
+今回の例では公開鍵認証でインストールしたため、sshd_configファイルのパスワード認証は自動的に無効化されました。また、下記のように鍵を保存する既定のパスにはインストール時に入力した公開鍵のファイルが生成されています。
+
+```powershell
++++@raspberrypi:~ $ cd /
++++@raspberrypi:/ $ vim etc/ssh/sshd_config
+```
+
+```
+#       $OpenBSD: sshd_config,v 1.103 2018/04/09 20:41:22 tj Exp $
+
+# This is the sshd server systeem-wide configuration file. See
+# sshd_config(5) for more information.
+～
+
+# To disable tunneled clear text password, change to no here!
+PasswordAuthentication no
+#PermitEmptyPasswords no
+
+# Change to yes to enable challenge-response passwords (beware issues with
+# some PAM modules and threads)
+ChallengeResponseAuthentication no
+```
+
+```powershell
++++@raspberrypi:~ $ cd .ssh
++++@raspberrypi:~/.ssh $ tree
+.
+└── authorized_keys
+
+0 directories, 1 file
+```
+
+### ホスト名でpingが返ってこない（SSH接続できない）場合
+
+LAN内でホスト名からipアドレスへ名前解決する際、mDNS（LinuxではAvahi）というプロトコルが用いられますが、たまに不具合で機能しないことがあります。
+この場合は、ラズパイに割り当てられたIPアドレスを直接指定してSSH接続を試みます。ラズパイのIPアドレスの確認方法ですが、以下の２つの方法が簡単です。
+
+1.  ルーターの管理画面から、ネットワークに接続されているデバイスの一覧を確認する
+2.  arpコマンドでネットワーク内に割り当てられているIPアドレスの一覧を取得する
+
+ルーターによっては、LANに接続されているデバイスの一覧を確認できる機能が搭載されています。また、デバイス名も表示されるため、ラズパイのIPアドレスを簡単に特定できます。ルーターの管理画面へのアクセス方法は、機種によって異なるためここでは省略します。
+[caption id="attachment_4993" align="aligncenter" width="501"]![buffalo-wifi-router-info](https://it-lake.com/wp-content/uploads/2022/11/buffalo-router-info.jpg) [BUFFALOルーターの例](https://www.buffalo.jp/support/faq/detail/15741.html)[/caption]
+[caption id="attachment_4992" align="aligncenter" width="519"]![tplink-wifi-router-info](https://it-lake.com/wp-content/uploads/2022/11/tplink-router-info-1200x626.jpg) TP-Linkルーターの例[/caption]
+
+続いてarpコマンド（arp -a）による確認方法です。arpコマンドは、LAN内のIPアドレスとMACアドレスの対応表（arpテーブル）を取得できます。ラズパイがLANに接続されており、IPアドレスが割り振られている場合は、arpコマンドを使用することで、ラズパイのIPアドレスを推測できるわけです。
+
+しかし、仕様上arpテーブルは定期的にクリアされ、一度通信を行ったアドレスしかテーブルに表示されません。タイミングによっては目的のアドレスが表示されないことがあるので、arp -aでラズパイっぽいIPアドレスが見つからなければ、一度テーブルを更新してから再度実行します。
+
+arpテーブルはarp応答を受けた時に更新されるため、まずはLAN内のIPアドレスにpingを送ります。この時ルーターやONUを介していたり、DHCPの割当範囲を指定している場合があると思うので、ネットワーク部とホスト部の値は環境に応じて変更してください。
+
+```powershell
+for ($i=0; $i -lt 255; $i++){ping -n 1 192.168.1.$i}
+```
+
+```powershell
+for ((i = 0 ; i <= 255 ; i++)); do ping -c 1 192.168.1.${i}; done
+```
+
+```powershell
+192.168.0.0 に ping を送信しています 32 バイトのデータ:
+192.168.0.177 からの応答: 宛先ホストに到達できません。
+
+192.168.0.0 の ping 統計:
+    パケット数: 送信 = 1、受信 = 1、損失 = 0 (0% の損失)、
+
+192.168.0.1 に ping を送信しています 32 バイトのデータ:
+192.168.0.1 からの応答: バイト数 =32 時間 =16ms TTL=64
+
+192.168.0.1 の ping 統計:
+    パケット数: 送信 = 1、受信 = 1、損失 = 0 (0% の損失)、
+ラウンド トリップの概算時間 (ミリ秒):
+    最小 = 16ms、最大 = 16ms、平均 = 16ms
+
+192.168.0.2 に ping を送信しています 32 バイトのデータ:
+192.168.0.177 からの応答: 宛先ホストに到達できません。
+
+192.168.0.2 の ping 統計:
+    パケット数: 送信 = 1、受信 = 1、損失 = 0 (0% の損失)、
+
+192.168.0.3 に ping を送信しています 32 バイトのデータ:
+192.168.0.177 からの応答: 宛先ホストに到達できません。
+
+192.168.0.3 の ping 統計:
+    パケット数: 送信 = 1、受信 = 1、損失 = 0 (0% の損失)、
+```
+
+指定した範囲のIPアドレス全てにpingが送られ、その都度arp要求も行うため、arp応答があった時にテーブルが更新されます。ping要求が全て終了したら、arp -aコマンドを実行してみます。
+
+```powershell
+PS C:\Users\+++> arp -a
+
+インターフェイス: 192.168.0.177 --- 0x11
+  インターネット アドレス 物理アドレス           種類
+  192.168.0.1           ++-++-++-7e-7e-47     動的
+  192.168.0.100         ++-++-++-16-06-e0     動的
+  192.168.0.104         ++-++-++-03-7c-84     動的
+  192.168.0.127         ++-++-++-ad-9a-ef     動的
+  192.168.0.150         ++-++-++-57-84-e4     動的
+  192.168.0.238         ++-++-++-d4-b6-0e     動的
+  192.168.0.255         ff-ff-ff-ff-ff-ff     静的
+以下略
+```
+
+LANに接続されている稼働中のデバイスが表示されました。僕の環境では、PC等のいくつかのデバイスはipを固定しているので、見覚えのない192.168.0.127が怪しいですね。このアドレスでラズパイのSSH接続を試みます。
+
+```powershell
+PS C:\Users\+++> ssh 192.168.0.127
+Linux raspberrypi 5.15.61-v8+ #1579 SMP PREEMPT Fri Aug 26 11:16:44 BST 2022 aarch64
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/+/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sun Nov 13 16:45:31 2022 from 192.168.0.177
++++@raspberrypi:~ $
+```
+
+ビンゴ！
+
+さいごに
+----
+
+24時間稼働を想定しているサーバー用途でPCを組むとなると、場所も取るし電気代も掛かるので複数台の導入は敷居が高いです。その点、小型で消費電力の小さいラズパイであれば気軽にサーバーを増設できるので便利ですね。
+
+今回のセットアップ方法のおかげで、マウス・キーボードやディスプレイを買わなくて済みました。
+浮いた金で食う飯はウマい！
+
+参考
+--
+
+**https://www.raspberrypi.com/documentation/computers/configuration.html#setting-up-a-headless-raspberry-pi**
+
+**https://www.raspberrypi.com/documentation/computers/configuration.html#the-boot-folder**
+
+**https://www.raspberrypi.com/news/a-security-update-for-raspbian-pixel/**

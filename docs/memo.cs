@@ -21,3 +21,24 @@ export default defineConfig({
     }),
   ],
 });
+
+
+【親コンポーネント側で定義したスタイルを子に適用する】
+// 親
+<Sidebar class="sidebar" />
+
+<style>
+.sidebar {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 1rem;
+  /* border-left: 0px solid #eaeaea; */
+  box-sizing: border-box;
+}
+
+// 子
+---
+const { class: className, ...rest } = Astro.props;
+---
+
+<aside class={className} {...rest} style="display: flex; flex-direction: column; gap:80px">

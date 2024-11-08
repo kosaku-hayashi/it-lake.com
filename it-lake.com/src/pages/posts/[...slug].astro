@@ -1,6 +1,7 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import TOC from '../../components/Toc.astro'
 import { extractDateAndSlug } from '../../scripts/extractDateAndSlug'
 
 interface Props {
@@ -22,5 +23,5 @@ const { Content } = await post.render();
 ---
 
 <BaseLayout pageTitle={post.data.title}>
-  <Content />
+  <Content components={{ TOC,}} />
 </BaseLayout>

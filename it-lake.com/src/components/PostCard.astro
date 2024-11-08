@@ -15,7 +15,7 @@ const { pubDate, slug } = extractDateAndSlug(post.id);
 <article style="display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #ddd;">
     {post.data.thumbnail && (
         <a href={`/posts/${slug}`}>
-            <img src={thumbnail} alt={title} style="width: 150px; height: 100px; object-fit: cover;" />
+            <img src={thumbnail} alt={title} style="max-width: 150px; max-height: 100px; object-fit: cover;" />
         </a>
     )}
 
@@ -26,7 +26,7 @@ const { pubDate, slug } = extractDateAndSlug(post.id);
             </a>
         </h3>
 
-        <p style="color: #555; margin: 0 0 0.5rem 0;">{description}</p>
+        <p style="color: #555; margin: 0 0 0.5rem 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{description}</p>
 
         <div style="display: flex; align-items: center; font-size: 0.875rem; color: #888; gap: 0.6rem;">
             <div style="display:flex; align-items: center; gap:2px">
@@ -47,7 +47,7 @@ const { pubDate, slug } = extractDateAndSlug(post.id);
                     </ul>
                 </>
             )}
-            <a href={`/posts/${slug}`} style="text-decoration: none; color: #0070f3; margin-left: auto;">Read more →</a>
+            <a href={`/posts/${slug}`} style="text-decoration: none; color: #0070f3; margin-left: auto; font-weight: bold;">Read more →</a>
         </div>
     </div>
 </article>
