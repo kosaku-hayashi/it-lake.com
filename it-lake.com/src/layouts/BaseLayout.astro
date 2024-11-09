@@ -15,7 +15,6 @@ const { pageTitle } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <slot name=""></slot>
     <!-- <link rel="stylesheet" href="/prism/vsc-dark-plus.css" /> -->
     <!-- <link rel="stylesheet" href="/prism/material-dark.css" /> -->
     <!-- <link rel="stylesheet" href="/prism/coldark-dark.css" /> -->
@@ -28,7 +27,7 @@ const { pageTitle } = Astro.props;
     <Header />
     <main class="main">
       <div class="container content-with-sidebar">
-        <div style="flex: 6; max-width: 820px; background-color: #ffffff; padding:15px">
+        <div class="main-content" style="flex: 6; max-width: 820px; background-color: #ffffff; padding:15px">
           <h1>{pageTitle}</h1>
           <slot />
         </div>

@@ -1,7 +1,7 @@
 ---
 title: 'SDカードリーダーだけでRaspberry PiのインストールとSSH接続をする'
 description: '外出先からアクセスできるファイルサーバーが追加で欲しくなったので、小型かつ安価で導入できるRaspberry Pi 4（以下ラズパイ）を購入しました。今回は、SDカードにWifiやSSH接続を可能にする設定ファイルを作成して、起動後にSSH接続ができる状態にしていこうと思います。'
-thumbnail: 'https://it-lake.com/wp-content/uploads/2022/11/sdcardreader-raspberrypi-install-768x432.jpg'
+thumbnail: './media/2022-11-14-raspberrypi-setup-headless/sdcardreader-raspberrypi-install.jpg'
 tags: ["Raspberry Pi"]
 updateDate: '2022-11-20' # yyyymmddのフォーマットで記入
 showSideToc: false
@@ -34,7 +34,11 @@ SDカードリーダーは、microSDとUSB端子（TypeAやTypeC）に対応し�
 
 今回セットアップに使うものは、ラズパイ4 model Bの2GB、SanDiskのmicroSDカード（32GB）、バッファローのSDカードリーダー（USB2.0）になります。
 
-<Image src="https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-install-part.jpg" />
+// import installPart from './media/2022-11-14-raspberrypi-setup-headless/raspberrypi-install-part.jpg';
+
+{/* <Image src={installPart}/> */}
+
+![image](./media/2022-11-14-raspberrypi-setup-headless/raspberrypi-install-part.jpg)
 
 SDカードにRaspberry Pi OSをインストールする
 ------------------------------
@@ -44,7 +48,7 @@ SDカードのフォーマットから、OSの書き込みまで行ってくれ�
 
 <Image src="https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-imager-download-e1668394179671.jpg" alt="raspberrypi-imager-download"/>
 
-インストーラーをを起動し、Raspberry Pi Imagerのインストールが完了したら起動させ、インストールするOSの種類と対象ストレージを選択していきます。
+インストーラーを起動し、Raspberry Pi Imagerのインストールが完了したら起動させ、インストールするOSの種類と対象ストレージを選択していきます。
 
 <Image src="https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-imager.jpg"/>
 

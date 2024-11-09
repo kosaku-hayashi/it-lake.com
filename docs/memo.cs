@@ -1,16 +1,22 @@
 Todo
+[...slug].astroのページのみ適用されるグローバルスタイルを作成
+フラグを渡してBaseLayoutでスタイルシートを読み込める？
+名前付きスロットでスタイルシートを読み込める？
+styleにディレクティブ（is:inline、is:global）を設定する方法がある？
+
+
+.containerをBaseLayoutに定義
 記事のh1直下にタイムスタンプとタグ（リンク付き）を表示
 タグページの記事を降順に
 Linksページ削除
 サイトの背景色調整
 Exploreページ作成
+noIndexの対応
 Aboutページ作成
 ダークテーマ対応
 Astro Awesomeチェック
 Githubコメント追加
 
-WPサイトをローカルとクラウドにバックアップ（サーバー領域とMySQL）
-XServer設定の保存
 記事と画像移植
 
 RSSフィード追加
@@ -61,6 +67,14 @@ const { class: className, ...rest } = Astro.props;
 【記事ページのメインコンテンツのみにスタイルを適用する】
 外部のグローバルスタイルシートを
 https://docs.astro.build/ja/guides/styling/#%E5%A4%96%E9%83%A8%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB
+
+
+【特定の属性を持つ要素にスタイルを適用する】
+<h2 data-type="main-heading">見出しタイトル</h2>
+
+h2[data-type="main-heading"] {
+    margin-top: 60px;
+}
 
 
 これからmarkdown形式の画像を、特定のAstroコンポーネントに書き換える作業をしていただきます。

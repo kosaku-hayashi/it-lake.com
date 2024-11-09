@@ -5,17 +5,21 @@ interface Props {
 
 import type { CollectionEntry } from 'astro:content';
 import { extractDateAndSlug } from '../scripts/extractDateAndSlug';
+import { isRemoteImage } from '../scripts/isRemoteImage';
 import { tagToSlug } from '../scripts/tags';
 import Tag from './Tag.astro';
+import { Image } from 'astro:assets'
 const { post } = Astro.props as Props;
 const {title, description, thumbnail, tags,updateDate} = post.data;
 const { pubDate, slug } = extractDateAndSlug(post.id);
 ---
 
 <article style="display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #ddd;">
-    {post.data.thumbnail && (
+    {thumbnail && (
         <a href={`/posts/${slug}`}>
-            <img src={thumbnail} alt={title} style="max-width: 150px; max-height: 100px; object-fit: cover;" />
+            {isRemoteImage(thumbnail as string) ?
+            <img src={thumbnail as string} alt={title} style="max-width: 210px; max-height: 160px; object-fit: cover;" /> :
+            <Image src={thumbnail as ImageMetadata} alt={title} class="postcard-cover"/>}
         </a>
     )}
 
@@ -51,3 +55,11 @@ const { pubDate, slug } = extractDateAndSlug(post.id);
         </div>
     </div>
 </article>
+
+<style>
+img.postcard-cover{
+  max-width: 210px;
+  max-height: 160px;
+  object-fit:contain;
+}
+</style>

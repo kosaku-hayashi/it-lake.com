@@ -44,16 +44,16 @@ code{
   font-display: swap;
 } */
 
-
-/* 記事コンテンツの見出し */
-.main > div > div > h2{
-  margin-top: 60px;
+.main-content h2,
+.main-content h3 {
+    margin-top: 60px;
 }
 
-.main > div > div > h3{
-  margin-top: 60px;
-}
-
+/* ローカル画像 */
+/* .main-content *:has(img[data-image-component="true"]) {
+  text-align: center;
+  object-fit: contain;
+} */
 
 /* テーブルのレスポンシブコンテナ */
 .table-responsive {
