@@ -1,11 +1,7 @@
 Todo
 [...slug].astroのページのみ適用されるグローバルスタイルを作成
-フラグを渡してBaseLayoutでスタイルシートを読み込める？
-名前付きスロットでスタイルシートを読み込める？
-styleにディレクティブ（is:inline、is:global）を設定する方法がある？
-
-
 .containerをBaseLayoutに定義
+
 記事のh1直下にタイムスタンプとタグ（リンク付き）を表示
 タグページの記事を降順に
 Linksページ削除
@@ -75,6 +71,10 @@ https://docs.astro.build/ja/guides/styling/#%E5%A4%96%E9%83%A8%E3%82%B9%E3%82%BF
 h2[data-type="main-heading"] {
     margin-top: 60px;
 }
+
+【特定のページ全体に適用されるスタイルの実装方法】
+・コンポーネント内のstyleにディレクティブ（is:inline、is:global）を設定する
+・フラグもしくは名前付きスロットをBaseLayoutに渡して外部スタイルシートを読み込む
 
 
 これからmarkdown形式の画像を、特定のAstroコンポーネントに書き換える作業をしていただきます。
