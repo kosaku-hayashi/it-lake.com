@@ -1,7 +1,7 @@
 ---
 title: 'SDカードリーダーだけでRaspberry PiのインストールとSSH接続をする'
 description: '外出先からアクセスできるファイルサーバーが追加で欲しくなったので、小型かつ安価で導入できるRaspberry Pi 4（以下ラズパイ）を購入しました。今回は、SDカードにWifiやSSH接続を可能にする設定ファイルを作成して、起動後にSSH接続ができる状態にしていこうと思います。'
-thumbnail: './media/2022-11-14-raspberrypi-setup-headless/sdcardreader-raspberrypi-install.jpg'
+thumbnail: './sdcardreader-raspberrypi-install.jpg'
 tags: ["Raspberry Pi"]
 updateDate: '2022-11-20' # yyyymmddのフォーマットで記入
 showSideToc: false
@@ -19,7 +19,6 @@ noIndex: false
 
 準備したもの
 ------
-
 * **ラズパイ4**
 * **USB TypeC対応 ACアダプター（5V/3.0A）**
 * **micro SDカード（速度規格Class10推奨）**
@@ -28,17 +27,15 @@ noIndex: false
 上記4つは最低限必要です。
 今回はラズパイ4を使用していますが、2や3、zeroなどの別のモデルでも同じやり方でセットアップ可能です。
 
+
+
 現在流通しているmicroSDカードは、Class10規格対応のものがほとんどですが、購入する際は念のためチェックしておきましょう。また、ドライブレコーダーや監視カメラ用の高耐久モデルを選択するのもありです。MLC設計やTBW値の高いフラッシュメモリは、寿命が使い方に依存するとは言え、比較的壊れにくいです。
 
 SDカードリーダーは、microSDとUSB端子（TypeAやTypeC）に対応しているものであれば何でもいいです。SDカードにはOSの設定ファイルを書き込むだけなので、USB3.0以上の規格は必要なく、USB2.0の転送速度で十分です。
 
 今回セットアップに使うものは、ラズパイ4 model Bの2GB、SanDiskのmicroSDカード（32GB）、バッファローのSDカードリーダー（USB2.0）になります。
 
-// import installPart from './media/2022-11-14-raspberrypi-setup-headless/raspberrypi-install-part.jpg';
-
-{/* <Image src={installPart}/> */}
-
-![image](./media/2022-11-14-raspberrypi-setup-headless/raspberrypi-install-part.jpg)
+![image](./raspberrypi-install-part.jpg)
 
 SDカードにRaspberry Pi OSをインストールする
 ------------------------------
