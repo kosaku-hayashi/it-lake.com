@@ -28,9 +28,13 @@ const { Content } = await post.render();
 </BaseLayout>
 
 <style is:global>
-/* ローカル画像 */
+/* マークダウンで表示する画像 */
 .main-content *:has(img[data-image-component="true"]) {
   text-align: center;
+}
+.main-content img[data-image-component="true"] {
+  max-width: 610px;
+  max-height: 340px;
   object-fit: contain;
 }
 

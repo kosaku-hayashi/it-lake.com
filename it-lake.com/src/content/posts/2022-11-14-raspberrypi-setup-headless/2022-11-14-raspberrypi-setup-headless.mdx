@@ -35,7 +35,7 @@ SDカードリーダーは、microSDとUSB端子（TypeAやTypeC）に対応し�
 
 今回セットアップに使うものは、ラズパイ4 model Bの2GB、SanDiskのmicroSDカード（32GB）、バッファローのSDカードリーダー（USB2.0）になります。
 
-![image](./raspberrypi-install-part.jpg)
+![raspberrypi install part](./raspberrypi-install-part.jpg)
 
 SDカードにRaspberry Pi OSをインストールする
 ------------------------------
@@ -43,22 +43,22 @@ SDカードにRaspberry Pi OSをインストールする
 公式から、[Raspberry Pi Imager](https://www.raspberrypi.com/software/)をダウンロードします。
 SDカードのフォーマットから、OSの書き込みまで行ってくれる便利なツールです。
 
-<Image src="https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-imager-download-e1668394179671.jpg" alt="raspberrypi-imager-download"/>
+![raspberrypi imager download](./raspberrypi-imager-download.jpg)
 
 インストーラーを起動し、Raspberry Pi Imagerのインストールが完了したら起動させ、インストールするOSの種類と対象ストレージを選択していきます。
 
-<Image src="https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-imager.jpg"/>
+![raspberrypi imager](./raspberrypi-imager.jpg)
 
 OSの選択画面には、ラズパイOSだけでなく、Ubuntuやメディアサーバー用OSなど複数用意されています。今回は、GUIなしの「Raspberry Pi OS Lite (64-bit)　」をインストールします。
 グラフィック出力が不要になる分、発熱が抑えられてより省電力になるので、サーバー用途であればLite版をおすすめします。
 
-<Image src="https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-os-select-e1668394291186.jpg" alt="raspberrypi-os"/>
+![raspberrypi os](./raspberrypi-os-select.jpg)
 
-<Image src="https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-os-e1668394335375.jpg" alt="raspberrypi-os-list"/>
+![raspberrypi os list](./raspberrypi-os.jpg)
 
 ストレージ選択画面では、SDカードリーダーに接続してあるSDカードが表示されるはずなのでそちらを選択。僕の環境ではPCのRAMディスクも表示されました。このように複数機器表示されていると、間違いやすいのでご注意を。
 
-<Image src="https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-imager-strage.jpg" alt="raspberrypi-imager-strage-select"/>
+![raspberrypi imager storage select](./raspberrypi-imager-strage.jpg)
 
 Bootフォルダ内にWifiとSSH接続の設定ファイルを書き込む
 --------------------------------
@@ -71,7 +71,7 @@ Bootフォルダ内にWifiとSSH接続の設定ファイルを書き込む
 
 Imagerの最初の画面から、Ctrl＋Shift＋Xを押すことで詳細オプションの画面に飛びます。ここから、WifiおよびSSH接続の設定が可能です。
 
-<Image src="https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-imager-options.jpg"/>
+![raspberrypi imager options](./raspberrypi-imager-options.jpg)
 
 設定項目 | 説明
 -- | --
@@ -89,7 +89,7 @@ SSH接続では、パスワード認証と公開鍵認証を選択できます�
 
 インストール後のbootフォルダを確認してみると、オプションで設定した内容が記述されたfirstrun.shファイルが生成されます。この状態でSDカードをラズパイに入れてbootすれば、キーボードやディスプレイ無しでSSH接続が可能になります。Imagerを使えば簡単ですね。
 
-<Image src="https://it-lake.com/wp-content/uploads/2022/11/boot-firstrun.sh_.jpg" alt="raspberrypi-firstrun"/>
+![raspberrypi firstrun](./boot-firstrun.sh_.jpg)
 
 ```shellscript
 # firstrun.sh
@@ -152,7 +152,7 @@ Imagerにより作成されたbootフォルダ直下に、直接設定ファイ�
 
 OSインストール後は、 SDカードにファイルがいくつか作成されていると思います。この場所に設定ファイルを追加していきます。
 
-<Image src="https://it-lake.com/wp-content/uploads/2022/11/raspberrypi-imager-boot.jpg" alt="raspberrypi-imager-boot"/>
+![raspberrypi imager boot](./raspberrypi-imager-boot.jpg)
 
 #### SSHを有効化する
 
@@ -199,14 +199,14 @@ network={
 
 **[WPA key calculation](http://jorisvr.nl/wpapsk.html)**
 
-<Image src="https://it-lake.com/wp-content/uploads/2022/11/wpa-key-calculation-1200x621.jpg" alt="wpa-key-calculation"/>
+![wpa key calculation](./wpa-key-calculation.jpg)
 
 外部からSSHで接続してみる
 --------------
 
 今回はImagerのオプションで設定した方法を試してみます。ホスト名はデフォルトのraspberrypi.localとし、SSHは公開鍵認証での接続です。また、Wifiの設定が適用されているかをチェックするため、LANケーブルは接続しません。
 
-<Image src="https://it-lake.com/wp-content/uploads/2022/11/boot-raspberrypi.jpg" alt="bootraspberrypi"/>
+![boot raspberrypi](./boot-raspberrypi.jpg)
 
 公式ドキュメントでは、Wifiに接続されるまで起動してから最大5分掛かると明記されていたので少し待機します。僕の環境では1分くらい待ってルーターのワイヤレスデバイス一覧に出現しました。では、PowerShellでホスト名を指定して下記のようにpingを飛ばしてみます。
 
@@ -285,7 +285,8 @@ LAN内でホスト名からipアドレスへ名前解決する際、mDNS（Linux
 2.  arpコマンドでネットワーク内に割り当てられているIPアドレスの一覧を取得する
 
 ルーターによっては、LANに接続されているデバイスの一覧を確認できる機能が搭載されています。また、デバイス名も表示されるため、ラズパイのIPアドレスを簡単に特定できます。ルーターの管理画面へのアクセス方法は、機種によって異なるためここでは省略します。
-<Image src="https://it-lake.com/wp-content/uploads/2022/11/buffalo-router-info.jpg" alt="buffalo-wifi-router-info"/>
+
+![buffalo wifi router info](./buffalo-router-info.jpg)
 <p style="text-align: center">[BUFFALOルーターの例](https://www.buffalo.jp/support/faq/detail/15741.html)</p>
 
 続いてarpコマンド（arp -a）による確認方法です。arpコマンドは、LAN内のIPアドレスとMACアドレスの対応表（arpテーブル）を取得できます。ラズパイがLANに接続されており、IPアドレスが割り振られている場合は、arpコマンドを使用することで、ラズパイのIPアドレスを推測できるわけです。
