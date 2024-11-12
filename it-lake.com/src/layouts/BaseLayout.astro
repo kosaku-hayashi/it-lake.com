@@ -22,6 +22,7 @@ const { pageTitle, showSidebar = true} = Astro.props;
     <!-- <link rel="stylesheet" href="/prism/xonokai.css" /> -->
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <slot name="head" />
     <title>{pageTitle}</title>
   </head>
   <body class="body">
@@ -64,7 +65,6 @@ const { pageTitle, showSidebar = true} = Astro.props;
   flex: 1;
   background-color:#F1FCFD;
 }
-
 
 .content-with-sidebar {
   display: flex;

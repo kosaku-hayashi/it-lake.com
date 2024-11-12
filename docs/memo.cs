@@ -1,11 +1,11 @@
 Todo
+記事と画像移植
 Exploreページ作成
 noIndexの対応
 Aboutページ作成
 ダークテーマ対応
+スマホからチェック
 Astro Awesomeチェック
-
-記事と画像移植
 
 RSSフィード追加
 サイトマップ作成
@@ -62,6 +62,13 @@ https://docs.astro.build/ja/guides/styling/#%E5%A4%96%E9%83%A8%E3%82%B9%E3%82%BF
 
 h2[data-type="main-heading"] {
     margin-top: 60px;
+}
+
+【tocクラスが付与されたnavタグ内を除外してスタイルを適用する】
+.article:not(nav.toc) > ul li,
+.article:not(nav.toc) > ol li {
+  line-height: 1.5;
+padding: 0.5em 0;
 }
 
 【特定のページ全体に適用されるスタイルの実装方法】

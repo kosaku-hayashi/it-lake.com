@@ -6,8 +6,8 @@ import { Image } from 'astro:assets'
 
 interface Props{
   src: string | ImageMetadata,
-  alt: string,
-  size: string,
+  alt?: string,
+  size?: string,
 }
 
 let {src, alt = "", size = "default"} = Astro.props;
@@ -17,7 +17,7 @@ const isRemote = isRemoteImage(src as string);
 
 <div style="text-align: center;">
     {isRemote ?
-    <img src={src as string} alt={alt} class="default"/> :
+    <img src={src as string} alt={alt} class={size}/> :
     <Image src={src as ImageMetadata} alt={alt} class={size}/>}
 </div>
 

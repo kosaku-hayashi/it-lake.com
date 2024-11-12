@@ -2,7 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TOC from '../../components/Toc.astro'
-import Image from '../../components/MdxImage.astro'
+import Image from '../../components/CustomImage.astro'
 import PostTag from './../../components/PostTag.astro';
 import PostTimestamp from './../../components/PostTimestamp.astro';
 import { extractDateAndSlug } from '../../scripts/extractDateAndSlug'
@@ -26,35 +26,47 @@ const { Content } = await post.render();
 ---
 
 <BaseLayout pageTitle={post.data.title}>
+  {post.data.noIndex && <meta slot="head" name="robots" content="noindex"/>}
   <div style="display:flex; margin-top: -15px; margin-bottom: 30px; font-size: 0.875rem; color: #888; gap: 0.6rem;">
       <PostTimestamp pubDate={extractDateAndSlug(post.id).pubDate} updateDate={post.data.updateDate}/>
       <PostTag tags={post.data.tags}/>
   </div>
-  <Content components={{ TOC, Image,}}/>
+  <div class="article">
+    <Content components={{ TOC, Image,}}/>
+  </div>
 </BaseLayout>
 
 <style is:global>
-/* マークダウンで表示する画像 */
-.main-content *:has(img[data-image-component="true"]) {
-  text-align: center;
-}
-.main-content img[data-image-component="true"] {
-  max-width: 610px;
-  max-height: 340px;
-  object-fit: contain;
-}
-
 .main-content h2,
 .main-content h3 {
     margin-top: 60px;
 }
 
-pre {
-  padding: 14px;
-  border-radius: 8px;
+/* マークダウンで表示する画像 */
+.article *:has(img[data-image-component="true"]) {
+  text-align: center;
+}
+.article img[data-image-component="true"] {
+  max-width: 610px;
+  max-height: 340px;
+  object-fit: contain;
 }
 
-code{
-  font-family: 'Consolas', 'Lucida Sans Unicode','Lucida Grande';
+
+.article:not(nav.toc) > ul,
+.article:not(nav.toc) > ol {
+  background: #f1f8ff;
+  box-shadow: 0px 0px 0px 10px #f1f8ff;
+  border-radius: 9px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 0.5em 0.5em 0.5em 2em;
 }
+
+.article:not(nav.toc) > ul li,
+.article:not(nav.toc) > ol li {
+  line-height: 1.5;
+  padding: 0.5em 0;
+}
+
 </style>

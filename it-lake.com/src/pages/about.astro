@@ -1,7 +1,10 @@
 ---
 import { navItem } from "../constants/navItem"
 import BaseLayout from "../layouts/BaseLayout.astro"
+import Profile from "../assets/image/hotoriicon.jpg";
 ---
 
 <BaseLayout pageTitle={navItem.about}>
+    <img src={Profile.src} style="width: 100px; height: 100px; object-fit: cover;"/>
+    <h3 style="margin-top:-1px">Kosaku Hayashi</h3>
 </BaseLayout>

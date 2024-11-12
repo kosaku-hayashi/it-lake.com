@@ -13,7 +13,7 @@ const postCollection = defineCollection({
         ])
         .optional(),         // オプションに設定
     tags: z.array(z.string()),
-    updateDate: z.string(),
+    updateDate: z.string().optional(),
     showSideToc: z.boolean(),
     noIndex: z.boolean(),
   }),
