@@ -1,5 +1,4 @@
 Todo
-サイトの背景色調整
 Exploreページ作成
 noIndexの対応
 Aboutページ作成
