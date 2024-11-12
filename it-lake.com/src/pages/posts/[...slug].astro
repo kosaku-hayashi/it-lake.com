@@ -3,6 +3,8 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TOC from '../../components/Toc.astro'
 import Image from '../../components/MdxImage.astro'
+import PostTag from './../../components/PostTag.astro';
+import PostTimestamp from './../../components/PostTimestamp.astro';
 import { extractDateAndSlug } from '../../scripts/extractDateAndSlug'
 
 interface Props {
@@ -24,6 +26,10 @@ const { Content } = await post.render();
 ---
 
 <BaseLayout pageTitle={post.data.title}>
+  <div style="display:flex; margin-top: -15px; margin-bottom: 30px; font-size: 0.875rem; color: #888; gap: 0.6rem;">
+      <PostTimestamp pubDate={extractDateAndSlug(post.id).pubDate} updateDate={post.data.updateDate}/>
+      <PostTag tags={post.data.tags}/>
+  </div>
   <Content components={{ TOC, Image,}}/>
 </BaseLayout>
 
