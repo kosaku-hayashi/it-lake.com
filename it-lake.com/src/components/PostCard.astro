@@ -10,16 +10,16 @@ import PostTag from './PostTag.astro';
 import PostTimestamp from './PostTimestamp.astro';
 import { Image } from 'astro:assets'
 const { post } = Astro.props as Props;
-const {title, description, thumbnail, tags,updateDate} = post.data;
+const {title, description, cover, tags,updateDate} = post.data;
 const { pubDate, slug } = extractDateAndSlug(post.id);
 ---
 
 <article style="display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #ddd;">
-    {thumbnail && (
+    {cover && (
         <a href={`/posts/${slug}`}>
-            {isRemoteImage(thumbnail as string) ?
-            <img src={thumbnail as string} alt={title} style="max-width: 210px; max-height: 160px; object-fit: cover;" /> :
-            <Image src={thumbnail as ImageMetadata} alt={title} class="postcard-cover"/>}
+            {isRemoteImage(cover as string) ?
+            <img src={cover as string} alt={title} style="max-width: 210px; max-height: 160px; object-fit: cover;" /> :
+            <Image src={cover as ImageMetadata} alt={title} class="postcard-cover"/>}
         </a>
     )}
 

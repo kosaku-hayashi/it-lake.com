@@ -1,20 +1,22 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { getAllTags, tagToSlug, slugToTag } from '../../scripts/tags.ts';
+import { postSort } from '../../scripts/postSort';
 import TagIcon from '../../components/icon/TagIcon.astro';
 import PostCard from "../../components/PostCard.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
-
 export async function getStaticPaths() {
+  // const allPosts = await getCollection("posts",({ data }) => data.tags.includes(tag)) as CollectionEntry<'posts'>[];
   const allPosts = await getCollection("posts");
   const uniqueTags = getAllTags(allPosts);
   return uniqueTags.map((tag) => {
     const filteredPosts = allPosts.filter((post) => post.data.tags.includes(tag));
+    const sortedPosts = postSort(filteredPosts);
     const slug = tagToSlug(tag);
     return {
         params: {tag: slug},
-        props: {posts: filteredPosts},
+        props: {posts: sortedPosts},
     }
   })
 }

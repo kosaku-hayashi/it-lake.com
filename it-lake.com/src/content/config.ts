@@ -6,7 +6,7 @@ const postCollection = defineCollection({
     z.object({
     title: z.string(),
     description: z.string(),
-    thumbnail: z
+    cover: z
         .union([
           image(),
           z.string(),

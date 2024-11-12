@@ -1,7 +1,4 @@
 Todo
-thumbnailをcoverに変更
-タグページの記事を降順に
-Linksページ削除
 サイトの背景色調整
 Exploreページ作成
 noIndexの対応

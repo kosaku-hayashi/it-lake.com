@@ -3,13 +3,9 @@ import BaseLayout from "../layouts/BaseLayout.astro"
 import PostCard from "../components/PostCard.astro";
 import { getCollection } from 'astro:content';
 import { extractDateAndSlug } from "../scripts/extractDateAndSlug";
+import { postSort } from "../scripts/postSort";
 const posts = await getCollection('posts');
-const sortedPosts = posts.sort((a, b) => {
-  // 日付文字列をDateオブジェクトに変換して比較
-  const bDate = extractDateAndSlug(b.id).pubDate;
-  const aDate = extractDateAndSlug(a.id).pubDate;
-  return new Date(bDate).getTime() - new Date(aDate).getTime();
-});
+const sortedPosts = postSort(posts);
 ---
 
 <BaseLayout pageTitle="">
