@@ -12,7 +12,14 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/mdx": "^3.1.9",
+    "@astrojs/rss": "^4.0.9",
     "astro": "^4.16.8",
+    "markdown-it": "^14.1.0",
+    "sanitize-html": "^2.13.1",
     "typescript": "^5.6.3"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "@types/sanitize-html": "^2.13.0"
   }
 }

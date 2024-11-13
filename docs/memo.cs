@@ -1,8 +1,5 @@
 Todo
 スマホからチェック
-Astro Awesomeチェック
-
-RSSフィード追加
 サイトマップ作成
 
 
