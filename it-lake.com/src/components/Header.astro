@@ -31,14 +31,28 @@ import Link from './Link.astro';
 </header>
 
 <style>
-.nav-link {
+
+.dark header{
+  background-color: #131516;
+  color: #fff;
+}
+
+.nav-link{
+  color:#000000;
   font-weight: bold;
   text-decoration: none;
-  color: inherit;
   transition: color 0.3s ease;
 }
 
-.nav-link:hover {
+html.dark .nav-link{
+  color: #ffffff;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover,
+html.dark .nav-link:hover{
   color: #007BFF;
 }
 

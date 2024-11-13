@@ -1,9 +1,4 @@
 Todo
-記事と画像移植
-Exploreページ作成
-noIndexの対応
-Aboutページ作成
-ダークテーマ対応
 スマホからチェック
 Astro Awesomeチェック
 

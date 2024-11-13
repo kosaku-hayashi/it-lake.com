@@ -5,6 +5,41 @@ import Profile from "../assets/image/hotoriicon.jpg";
 ---
 
 <BaseLayout pageTitle={navItem.about}>
-    <img src={Profile.src} style="width: 100px; height: 100px; object-fit: cover;"/>
-    <h3 style="margin-top:-1px">Kosaku Hayashi</h3>
+    <div style="display:flex; flex-direction: column; gap:10px">
+        <div>
+            <img src={Profile.src} style="width: 100px; height: 100px; object-fit: cover;"/>
+            <h3 style="margin-top:-1px">Kosaku Hayashi</h3>
+            <p>
+                名古屋在住の個人開発者です。</br>
+                .NET周りの技術でデスクトップアプリやモバイルアプリを作成しています。
+            </p>
+        </div>
+        <div>
+            <h3 style="margin-bottom: -15px;">スキル</h3>
+            <p>
+                C#<br>
+                XAML<br><br>
+
+                .NET MAUI<br>
+                WPF<br>
+                Windows Forms<br>
+            </p>
+
+            <h4  style="margin-bottom: -10px;">資格</h4>
+            <p>
+                基本情報技術者<br>
+                応用情報技術者<br>
+                情報処理安全確保支援士試験 合格(未登録)
+            </p>
+        </div>
+
+        <div>
+            <h3 style="margin-top: 50px;">このブログについて</h3>
+            <p>
+                個人的な技術メモのためのブログです。<br>
+                特に更新しておらず、サーバー代と保守の手間が煩わしかったので最近SSGに移行しました。移行ついでに無用な記事を削除して脱Wordpressに成功。
+                ReactやVue等を導入せず素のEmpty Astroプロジェクトで構築し、Cloudflare Pagesで稼働させています。
+            </p>
+        </div>
+    </div>
 </BaseLayout>

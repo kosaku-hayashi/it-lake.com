@@ -44,11 +44,19 @@ const headings = buildHierarchy(Astro.props.headings ?? [])
 </nav>
 
 <style>
-
 .toc {
+  margin-top: 50px;
   border: 2px solid #efefef;
   padding: 16px;
   background-color: #fafafa;
+  counter-reset: section; /* カウンターの初期化をここに移動 */
+}
+
+html.dark .toc{
+  margin-top: 50px;
+  border: 2px solid #969494;
+  padding: 16px;
+  background-color: #30323d;
   counter-reset: section; /* カウンターの初期化をここに移動 */
 }
 
@@ -59,7 +67,6 @@ const headings = buildHierarchy(Astro.props.headings ?? [])
 
 .toc a {
   text-decoration: none;
-  color: #017acc;
 }
 
 .toc a:hover {

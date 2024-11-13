@@ -29,7 +29,7 @@ const { pageTitle, showSidebar = true} = Astro.props;
     <Header />
     <main class="main">
       <div class="container content-with-sidebar">
-        <div class="main-content" style={`flex: 6; max-width: ${showSidebar ? 820 : 1200}px; background-color: #ffffff; padding:15px`}>
+        <div class="main-content" style={`flex: 6; max-width: ${showSidebar ? 820 : 1200}px; padding:15px`}>
           <h1>{pageTitle}</h1>
           <slot />
         </div>
@@ -64,6 +64,10 @@ const { pageTitle, showSidebar = true} = Astro.props;
 .main{
   flex: 1;
   background-color:#F1FCFD;
+}
+
+.main-content{
+  background-color: #ffffff;
 }
 
 .content-with-sidebar {
