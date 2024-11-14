@@ -43,10 +43,10 @@ const { Content } = await post.render();
 }
 
 /* マークダウンで表示する画像 */
-.article *:has(img[data-image-component="true"]) {
+.article *:has(img[loading="lazy"][decoding="async"]) {
   text-align: center;
 }
-.article img[data-image-component="true"] {
+.article img[loading="lazy"][decoding="async"] {
   max-width: 610px;
   max-height: 340px;
   object-fit: contain;
