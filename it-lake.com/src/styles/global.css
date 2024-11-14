@@ -35,6 +35,10 @@ html.dark h4{
   margin: 0;
 }
 
+*, *:before, *:after {
+  box-sizing: border-box;
+  }
+
 /* @font-face {
   font-family: 'GenShinGothic';
   src: url('/fonts/GenShinGothic-Regular.ttf') format('ttf');
@@ -46,18 +50,11 @@ html.dark h4{
 pre {
   padding: 14px;
   border-radius: 8px;
+  max-width: 800px; /*コードフォントの変更によるサイズ増大で幅が拡張されるのを防止*/
 }
 
 code{
   font-family: 'Consolas', 'Lucida Sans Unicode','Lucida Grande';
-}
-
-
-/* テーブルのレスポンシブコンテナ */
-.table-responsive {
-  width: 100%;
-  overflow-x: auto;
-  margin-bottom: 1rem;
 }
 
 /* テーブルの基本スタイル */
@@ -116,7 +113,7 @@ html.dark td {
 
 
 /* レスポンシブ調整 */
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   table {
     font-size: 0.9rem;
   }
@@ -142,7 +139,7 @@ html.dark blockquote {
 }
 
 /* レスポンシブ対応（必要に応じて） */
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   blockquote {
     padding: 0.75rem 1rem;
     font-size: 0.95rem;

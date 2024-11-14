@@ -13,5 +13,18 @@ const {tagName} = Astro.props;
 
 <Link href={`/tags/${tagToSlug(tagName)}`} class="no-underline">
     <TagIcon width="12" height="12"></TagIcon>
-    <p style="display:inline; margin-left: -2px;">{tagName}</p>
+    <p class="name">{tagName}</p>
 </Link>
+
+<style>
+    .name{
+        display:inline;
+        margin-left: -2px;
+    }
+
+    @media (max-width: 900px) {
+        .name{
+            font-size: 0.9rem;
+        }
+}
+</style>

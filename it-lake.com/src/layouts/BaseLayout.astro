@@ -24,7 +24,7 @@ const { pageTitle, description = ".NETの技術メモブログ", showTitle = tru
     <!-- <link rel="stylesheet" href="/prism/coldark-dark.css" /> -->
     <!-- <link rel="stylesheet" href="/prism/xonokai.css" /> -->
     <meta name="description" content={description}>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <slot name="head" />
     <title>{pageTitle}</title>
@@ -32,8 +32,8 @@ const { pageTitle, description = ".NETの技術メモブログ", showTitle = tru
   <body class="body">
     <Header />
     <main class="main">
-      <div class="container content-with-sidebar">
-        <div class="main-content" style={`flex: 6; max-width: ${showSidebar ? 820 : 1200}px; padding:15px; min-height: 700px`}>
+      <div class="container">
+        <div class="main-content" style={`flex: 5; padding:15px; min-height: 700px;`}>
           {showTitle && <h1>{pageTitle}</h1>}
           <slot />
         </div>
@@ -45,17 +45,6 @@ const { pageTitle, description = ".NETの技術メモブログ", showTitle = tru
     <!-- <script src="/prism.js" is:inline></script> -->
   </body>
 </html>
-
-<style is:global>
-.container {
-  max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  box-sizing: border-box;
-}
-</style>
 
 <style>
 .body{
@@ -70,34 +59,44 @@ const { pageTitle, description = ".NETの技術メモブログ", showTitle = tru
   background-color:#F1FCFD;
 }
 
-.main-content{
-  background-color: #ffffff;
-}
-
-.content-with-sidebar {
+.container {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-sizing: border-box;
   gap: 2rem;
   padding: 2rem 0;
 }
 
-.sidebar {
+.main-content{
+  background-color: #ffffff;
+}
+
+.sidebar{
   flex: 1;
   background-color: #ffffff;
   padding: 1rem;
-  /* border-left: 0px solid #eaeaea; */
   box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  position: static;
+  gap:80px;
 }
 
-@media (max-width: 768px) {
-  .content-with-sidebar {
+@media (max-width: 900px) {
+  .container {
       flex-direction: column;
   }
 
-  .sidebar {
-      border-left: none;
-      border-top: 1px solid #eaeaea;
+  .sidebar{
+    gap:60px;
   }
 }
 </style>

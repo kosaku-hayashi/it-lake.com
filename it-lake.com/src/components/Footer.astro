@@ -5,7 +5,7 @@ import XIcon from './icon/XIcon.astro';
 import RssIcon from './icon/RssIcon.astro';
 ---
 
-<footer style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 4rem; border-top: 2.5px solid #ddd; font-size: 0.9rem;">
+<footer class="footer">
     <div>
         <p style="font-weight: bold;">Index: &nbsp;<Link href="/" class="no-underline">https:it-lake.com</Link></p>
         <p style="font-weight: bold;">Latest commit: &nbsp;<Link href="" class="no-underline">Github Link</Link></p>
@@ -17,3 +17,21 @@ import RssIcon from './icon/RssIcon.astro';
         <RssIcon/>
     </div>
 </footer>
+
+<style>
+    .footer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 4rem;
+        border-top: 2.5px solid #ddd;
+        font-size: 0.9rem;
+    }
+
+@media (max-width: 900px) {
+    .footer{
+        padding: 0.6rem 1.2rem;
+        font-size: 0.8rem;
+    }
+}
+</style>

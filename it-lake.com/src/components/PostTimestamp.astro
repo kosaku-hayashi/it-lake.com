@@ -31,14 +31,27 @@ if (updateDate) {
 }
 ---
 {dates.length > 0 && (
-  <div style="display: flex; align-items: center; gap: 4px;">
+  <div style="display: flex; align-items: center; gap: 8px;">
     {dates.map((date, index) => (
       <div style="display: flex; align-items: center; gap: 2px;">
-        <svg xmlns="http://www.w3.org/2000/svg" height="16px" width="16px" viewBox="0 -960 960 960" fill="currentColor" style="margin-bottom: 2px;">
+        <svg xmlns="http://www.w3.org/2000/svg" height="18px" width="18px" viewBox="0 -960 960 960" fill="currentColor" style="margin-bottom: 2px;">
           <path d={date.iconPath}></path>
         </svg>
-        <time datetime={date.datetime} aria-label={date.label}>{date.datetime}</time>
+        <time class="time" datetime={date.datetime} aria-label={date.label}>{date.datetime}</time>
       </div>
     ))}
   </div>
 )}
+
+
+<style>
+.time{
+
+}
+
+@media (max-width: 900px) {
+  .time{
+    font-size: 0.8rem;
+  }
+}
+</style>
