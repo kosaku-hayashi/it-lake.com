@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://it-lake.com/sitemap-index.xml

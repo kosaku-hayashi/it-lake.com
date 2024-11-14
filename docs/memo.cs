@@ -1,7 +1,7 @@
 Todo
 スマホからチェック
-サイトマップ作成
-
+インデックスに挙げてはいけないファイルが無いかチェック
+readme.md更新
 
 【@astrojs/sitemapによるサイトマップ生成でnoindexを考慮】
 // astro.config.mjs
