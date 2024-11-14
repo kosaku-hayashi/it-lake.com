@@ -6,13 +6,15 @@ import "../styles/global.css";
 
 interface Props{
   pageTitle:string,
+  description?:string,
+  showTitle?:boolean,
   showSidebar?:boolean,
 }
 
-const { pageTitle, showSidebar = true} = Astro.props;
+const { pageTitle, description = ".NETの技術メモブログ", showTitle = true, showSidebar = true} = Astro.props;
 ---
 
-<html lang="ja">
+<html lang="ja" title={pageTitle}>
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -21,6 +23,7 @@ const { pageTitle, showSidebar = true} = Astro.props;
     <!-- <link rel="stylesheet" href="/prism/material-dark.css" /> -->
     <!-- <link rel="stylesheet" href="/prism/coldark-dark.css" /> -->
     <!-- <link rel="stylesheet" href="/prism/xonokai.css" /> -->
+    <meta name="description" content={description}>
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <slot name="head" />
@@ -31,7 +34,7 @@ const { pageTitle, showSidebar = true} = Astro.props;
     <main class="main">
       <div class="container content-with-sidebar">
         <div class="main-content" style={`flex: 6; max-width: ${showSidebar ? 820 : 1200}px; padding:15px; min-height: 700px`}>
-          <h1>{pageTitle}</h1>
+          {showTitle && <h1>{pageTitle}</h1>}
           <slot />
         </div>
         {showSidebar && <Sidebar class="sidebar" />}

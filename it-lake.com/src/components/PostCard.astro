@@ -24,11 +24,11 @@ const { pubDate, slug } = extractDateAndSlug(post.id);
     )}
 
     <div style="flex: 1;">
-        <h3 style="margin: 0 0 0.5rem 0; font-size: 1.25rem;">
+        <h2 style="margin: 0 0 0.5rem 0; font-size: 1.25rem;">
             <a href={`/posts/${slug}`} style="text-decoration: none; color: inherit;">
                 {title}
             </a>
-        </h3>
+        </h2>
 
         <p style="color: #555; margin: 0 0 0.5rem 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{description}</p>
 

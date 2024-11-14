@@ -7,7 +7,7 @@ const posts = await getCollection('posts');
 const sortedPosts = postSort(posts);
 ---
 
-<BaseLayout pageTitle="">
+<BaseLayout pageTitle="it-lake.com" showTitle = {false}>
     <ul class="unstyled-list">
         {
           sortedPosts.map((post) =>
