@@ -47,6 +47,16 @@ const { pageTitle, description = ".NETの技術メモブログ", showTitle = tru
 
       window.localStorage.setItem('theme', theme);
     </script>
+
+  <script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=G-KH4P2MB1GC"/>
+  <script type="text/partytown">
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-KH4P2MB1GC");
+  </script>
   </head>
 
   <body class="body">
@@ -111,6 +121,10 @@ const { pageTitle, description = ".NETの技術メモブログ", showTitle = tru
 }
 
 @media (max-width: 900px) {
+  .main-content h1 {
+    font-size: 1.6rem;
+  }
+
   .container {
       flex-direction: column;
   }
