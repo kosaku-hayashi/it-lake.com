@@ -43,13 +43,12 @@ const { Content } = await post.render();
 }
 
 /* マークダウンで表示する画像 */
-.article *:has(img[loading="lazy"][decoding="async"]) {
-  text-align: center;
-}
 .article img[loading="lazy"][decoding="async"] {
   max-width: 610px;
   max-height: 340px;
   object-fit: contain;
+  display: block;
+  margin: 0 auto;
 }
 
 
@@ -81,6 +80,26 @@ html.dark .article:not(nav.toc) > ol {
 
 html.dark .article p{
   color: #dddbd6;
+}
+
+@media (max-width: 900px) {
+  .main-content h1 {
+    font-size: 1.6rem;
+  }
+
+  .main-content h2 {
+    font-size: 1.3rem;
+  }
+
+  .main-content h3 {
+    font-size: 1.1rem;
+  }
+
+  .article img[loading="lazy"][decoding="async"]{
+    width: 100%;
+    max-height:none;
+    height: auto;
+  }
 }
 
 </style>

@@ -39,6 +39,10 @@ html.dark h4{
   box-sizing: border-box;
   }
 
+a{
+  word-break: break-all;
+}
+
 /* @font-face {
   font-family: 'GenShinGothic';
   src: url('/fonts/GenShinGothic-Regular.ttf') format('ttf');
@@ -111,14 +115,6 @@ html.dark td {
   border-right: 1px solid #ddd;
 }
 
-
-/* レスポンシブ調整 */
-@media (max-width: 900px) {
-  table {
-    font-size: 0.9rem;
-  }
-}
-
 /* 引用のスタイル */
 blockquote {
   margin: 1.5rem 0;
@@ -140,8 +136,22 @@ html.dark blockquote {
 
 /* レスポンシブ対応（必要に応じて） */
 @media (max-width: 900px) {
+  table {
+    font-size: 0.9rem;
+  }
+
   blockquote {
     padding: 0.75rem 1rem;
     font-size: 0.95rem;
+  }
+
+  pre {
+    padding: 8px;
+    border-radius: 5px;
+    max-width: 800px; /*コードフォントの変更によるサイズ増大で幅が拡張されるのを防止*/
+  }
+
+  code{
+    font-size: small;
   }
 }
