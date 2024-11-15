@@ -11,7 +11,7 @@ export async function getStaticPaths() {
   const allPosts = await getCollection("posts");
   const uniqueTags = getAllTags(allPosts);
   return uniqueTags.map((tag) => {
-    const filteredPosts = allPosts.filter((post) => post.data.tags.includes(tag));
+    const filteredPosts = allPosts.filter((post:any) => post.data.tags.includes(tag));
     const sortedPosts = postSort(filteredPosts);
     const slug = tagToSlug(tag);
     return {
@@ -29,7 +29,7 @@ const displayTag = slugToTag(tag);
 <BaseLayout pageTitle={displayTag} showTitle = {false}>
     <div style="display: flex; flex-direction: row; align-items: center; gap:10px">
         <TagIcon width="32" height="32"></TagIcon>
-        <h1>{displayTag}</h1>
+        <h1 class="displayTag">{displayTag}</h1>
     </div>
     <ul class="unstyled-list">
         {
@@ -41,3 +41,15 @@ const displayTag = slugToTag(tag);
         }
     </ul>
 </BaseLayout>
+
+<style>
+  .displayTag{
+
+  }
+
+  @media (max-width: 900px) {
+    .displayTag{
+      font-size: 1.6rem;
+    }
+  }
+</style>

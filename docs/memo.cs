@@ -1,7 +1,4 @@
 Todo
-スマホからチェック
-インデックスに挙げてはいけないファイルが無いかチェック
-readme.md更新
 
 【@astrojs/sitemapによるサイトマップ生成でnoindexを考慮】
 // astro.config.mjs
@@ -22,7 +19,6 @@ export default defineConfig({
     }),
   ],
 });
-
 
 【親コンポーネント側で定義したスタイルを子に適用する】
 // 親
